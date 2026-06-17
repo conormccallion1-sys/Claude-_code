@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Addison's Disease &amp; the MRes Project — Interactive Research Dossier</title>
+<style>
+  :root{
+    --bg:#0f1216; --panel:#171c23; --panel2:#1b212a; --line:#262d37;
+    --ink:#e8edf3; --muted:#9aa7b4; --accent:#4cc2ff; --accent2:#7ee0b8;
+    --comp:#ffb454; --comp2:#c98bff; --red:#ff7a8a; --green:#7ee0b8; --amber:#ffb454;
+    --shadow:0 10px 40px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.6 -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ---- Header ---- */
+  header.top{position:sticky;top:0;z-index:50;background:rgba(15,18,22,.92);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .top-inner{max-width:1100px;margin:0 auto;padding:14px 22px;display:flex;
+    align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:38px;height:38px;border-radius:10px;flex:0 0 auto;
+    background:radial-gradient(circle at 30% 30%,var(--accent),var(--comp2));
+    box-shadow:0 0 18px rgba(76,194,255,.4)}
+  .brand h1{font-size:16px;margin:0;line-height:1.2}
+  .brand p{margin:0;color:var(--muted);font-size:12px}
+  .top-meta{color:var(--muted);font-size:12px;text-align:right}
+
+  /* ---- Tabs ---- */
+  nav.tabs{position:sticky;top:67px;z-index:40;background:rgba(15,18,22,.92);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);overflow-x:auto}
+  .tabs-inner{max-width:1100px;margin:0 auto;padding:0 14px;display:flex;gap:4px}
+  .tab{appearance:none;background:none;border:none;color:var(--muted);
+    font:inherit;font-size:13.5px;padding:13px 14px;cursor:pointer;
+    border-bottom:2px solid transparent;white-space:nowrap;transition:.15s}
+  .tab:hover{color:var(--ink)}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+  /* ---- Layout ---- */
+  .wrap{max-width:1100px;margin:0 auto;padding:34px 22px 90px}
+  .panel-view{display:none;animation:fade .35s ease}
+  .panel-view.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  h2.section{font-size:22px;margin:6px 0 4px}
+  .lead{color:var(--muted);font-size:15px;margin:0 0 26px;max-width:760px}
+  h3{font-size:17px;margin:30px 0 10px}
+  h4{font-size:15px;margin:20px 0 6px}
+
+  /* ---- Cards / metrics ---- */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:18px;text-align:center}
+  .card .num{font-size:30px;font-weight:700;color:var(--accent)}
+  .card .lbl{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .box.soft{background:var(--panel2)}
+  .box h3{margin-top:0}
+
+  .pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);margin:0 4px 4px 0}
+  .tag-green{color:#0f1216;background:var(--green)}
+  .tag-amber{color:#0f1216;background:var(--amber)}
+  .tag-red{color:#0f1216;background:var(--red)}
+
+  .maturity{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;margin-left:8px;vertical-align:middle}
+  .m-green{background:rgba(126,224,184,.16);color:var(--green)}
+  .m-amber{background:rgba(255,180,84,.16);color:var(--amber)}
+  .m-red{background:rgba(255,122,138,.16);color:var(--red)}
+
+  .construct{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:4px 20px;margin:14px 0;overflow:hidden}
+  .construct summary{cursor:pointer;list-style:none;padding:16px 0;font-size:16px;
+    font-weight:600;display:flex;align-items:center;gap:6px}
+  .construct summary::-webkit-details-marker{display:none}
+  .construct summary::before{content:"▸";color:var(--muted);transition:.2s;display:inline-block}
+  .construct[open] summary::before{transform:rotate(90deg)}
+  .construct .body{padding:0 0 18px;border-top:1px solid var(--line);margin-top:-2px;padding-top:14px}
+  .construct ul{margin:8px 0;padding-left:20px}
+  .construct li{margin:6px 0}
+  .insight{background:var(--panel2);border-left:3px solid var(--accent2);
+    border-radius:8px;padding:11px 14px;margin:12px 0;font-size:13.5px;color:var(--muted)}
+  .insight strong{color:var(--ink)}
+
+  /* ---- Tables ---- */
+  table{width:100%;border-collapse:collapse;margin:14px 0}
+  th{text-align:left;color:var(--muted);font-weight:600;font-size:12.5px;
+    padding:9px 10px;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.03em}
+  td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}
+  tr:hover td{background:rgba(255,255,255,.02)}
+
+  /* ---- Coverage bars ---- */
+  .cov td{padding:6px 8px;border:none}
+  .cov .angle{width:230px}
+  .cov .n{width:34px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+  .bar{height:15px;border-radius:8px;min-width:3px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2))}
+  .bar.comp{background:var(--comp)}
+  .legend{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:8px 0 4px}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:middle}
+
+  /* ---- Records ---- */
+  ul.records{list-style:none;margin:0;padding:0}
+  ul.records li{padding:11px 0;border-bottom:1px solid var(--line)}
+  .yr{color:var(--muted);font-variant-numeric:tabular-nums;margin-right:8px}
+  .meta{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .count{font-size:11.5px;color:var(--bg);background:var(--accent2);
+    border-radius:999px;padding:1px 9px;margin-left:8px;vertical-align:middle;font-weight:700}
+
+  .note{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent2);
+    border-radius:8px;padding:12px 15px;color:var(--muted);font-size:13px;margin:16px 0}
+
+  /* ---- Timeline / ladder ---- */
+  ol.ladder{counter-reset:step;list-style:none;padding:0;margin:18px 0}
+  ol.ladder li{position:relative;padding:14px 16px 14px 56px;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  ol.ladder li::before{counter-increment:step;content:counter(step);
+    position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),var(--comp2));color:#0f1216;
+    font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+  ol.ladder li b{display:block;margin-bottom:2px}
+  ol.ladder li span{color:var(--muted);font-size:13.5px}
+
+  footer{max-width:1100px;margin:0 auto;padding:24px 22px 60px;color:var(--muted);
+    font-size:12px;border-top:1px solid var(--line)}
+
+  @media (max-width:720px){
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .grid2{grid-template-columns:1fr}
+    .cov .angle{width:150px}
+    nav.tabs{top:96px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1>Addison's Disease &amp; the MRes Project</h1>
+        <p>Interactive research dossier — health psychology landscape, evidence map &amp; project framing</p>
+      </div>
+    </div>
+    <div class="top-meta">
+      Compiled for Conor McCallion<br>Evidence generated 2026-06-16
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-target="overview">Overview</button>
+  <button class="tab" data-target="primer">Medical Primer</button>
+  <button class="tab" data-target="core">Health-Psych Core</button>
+  <button class="tab" data-target="theory">Theory &amp; Gaps</button>
+  <button class="tab" data-target="directions">Research Directions</button>
+  <button class="tab" data-target="evidence">Evidence Map</button>
+  <button class="tab" data-target="comparators">Comparators</button>
+  <button class="tab" data-target="community">Community &amp; Sources</button>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel-view active" id="overview">
+  <h2 class="section">The project at a glance</h2>
+  <p class="lead">Addison's disease (primary adrenal insufficiency) is a condition of cortisol —
+    the body's central stress hormone — which makes it, almost by definition, a disease with a
+    large and under-mapped <em>psychological</em> surface. This dossier brings together the
+    full body of work: a health-psychology literature landscape, an evidence map across every
+    research angle, two comparator analyses, and the MRes project framing that sits on top of it.</p>
+
+  <div class="cards">
+    <div class="card"><div class="num">25</div><div class="lbl">unique records</div></div>
+    <div class="card"><div class="num">18</div><div class="lbl">scholarly sources</div></div>
+    <div class="card"><div class="num">10</div><div class="lbl">psychology constructs</div></div>
+    <div class="card"><div class="num">7</div><div class="lbl">community leads</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>The central argument</h3>
+      <p>Modern care keeps people <strong>biochemically adequate</strong> but frequently leaves
+      them <strong>not feeling well</strong> — persistent fatigue, low mood, cognitive fog and
+      impaired quality of life. The leading hypothesis is that tablets replace the hormone but
+      not its <em>rhythm</em>, and that this residual burden is fundamentally a health-psychology
+      problem.</p>
+      <p>Crucially, crisis prevention — the difference between living and dying with this
+      condition — is a <strong>behaviour-change</strong> problem, and psychological stress is a
+      <strong>direct physiological trigger</strong> of crisis. Few conditions map onto health
+      psychology so cleanly.</p>
+    </div>
+    <div class="box soft">
+      <h3>Where the white space is</h3>
+      <ul>
+        <li><span class="maturity m-red">🔴 wide open</span> Illness perceptions, coping &amp; adjustment</li>
+        <li><span class="maturity m-red">🔴 open</span> The intention–action gap in crisis self-management</li>
+        <li><span class="maturity m-red">🔴 wide open</span> Psychometric depth of AddiQoL (invariance / DIF)</li>
+        <li><span class="maturity m-amber">🟡 hinted</span> Subjective vs objective cognition divergence</li>
+        <li><span class="maturity m-amber">🟡 emerging</span> Stress as a crisis mechanism</li>
+      </ul>
+      <div class="insight">The single biggest open seam is <strong>illness perceptions, coping
+      and adjustment in PAI</strong> — close to absent despite being the natural home for a
+      health-psychology programme.</div>
+    </div>
+  </div>
+
+  <h3>How this dossier is organised</h3>
+  <table>
+    <thead><tr><th>Tab</th><th>What's in it</th></tr></thead>
+    <tbody>
+      <tr><td><b>Medical Primer</b></td><td>The ~15% of biology you need so the psychology makes sense — four facts that do all the work.</td></tr>
+      <tr><td><b>Health-Psych Core</b></td><td>Ten psychological constructs, each flagged by maturity (developed / emerging / thin).</td></tr>
+      <tr><td><b>Theory &amp; Gaps</b></td><td>Mainstream models mapped onto Addison's, plus the trends and the explicit gap list.</td></tr>
+      <tr><td><b>Research Directions</b></td><td>A pragmatic ladder of project options, lightest to most ambitious.</td></tr>
+      <tr><td><b>Evidence Map</b></td><td>Coverage by angle and the underlying records, drawn from open scholarly APIs.</td></tr>
+      <tr><td><b>Comparators</b></td><td>Addison's vs hypoparathyroidism (record counts) and vs ME/CFS (emphasis mirror).</td></tr>
+      <tr><td><b>Community &amp; Sources</b></td><td>Patient-organisation and lived-experience leads, accessed only via legitimate routes.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">Research-discovery and landscape material only — <strong>not medical advice</strong>.
+    Adrenal crisis is a medical emergency.</div>
+</section>
+
+<!-- ============ MEDICAL PRIMER ============ -->
+<section class="panel-view" id="primer">
+  <h2 class="section">Part I — Medical Primer</h2>
+  <p class="lead">Read once, then move on. Addison's disease (primary adrenal insufficiency, PAI)
+    is destruction of the adrenal cortex — autoimmune in ~80–90% of adult cases in the developed
+    world — so the body stops making <strong>cortisol</strong> (the stress/circadian glucocorticoid)
+    and usually <strong>aldosterone</strong> (salt/fluid balance). Onset is typically 30–50, with a
+    female skew.</p>
+
+  <h3>Four facts that do all the work for the psychology</h3>
+
+  <div class="construct" open>
+    <details open><summary>1 · Treatment replaces the hormone but not the rhythm</summary>
+    <div class="body">Lifelong oral hydrocortisone (15–25 mg/day, split doses) plus fludrocortisone
+    keeps people alive, but tablets can't reproduce the natural cortisol curve — the sharp
+    pre-waking rise, the ultradian pulses, the stress-reactive surges. Patients live in a state of
+    <em>approximate</em> replacement.</div></details>
+  </div>
+  <div class="construct">
+    <details><summary>2 · That approximation is the likely engine of the psychological burden</summary>
+    <div class="body">Fatigue, low mood, cognitive fog and poor quality of life persist in many
+    patients whose bloods look "adequate." The leading hypothesis across the modern literature is
+    that non-physiological cortisol exposure — wrong amount at the wrong time — drives the residual
+    symptom load.</div></details>
+  </div>
+  <div class="construct">
+    <details><summary>3 · Adrenal crisis is the acute, lethal event</summary>
+    <div class="body">Under physical or emotional stress, an unmet cortisol demand can tip into
+    circulatory collapse. It is largely <em>preventable</em> by behaviour (dose escalation,
+    "sick-day rules," emergency self-injection) — which makes crisis prevention a health-psychology
+    problem as much as an endocrine one.</div></details>
+  </div>
+  <div class="construct">
+    <details><summary>4 · Mortality remains elevated despite replacement</summary>
+    <div class="body">Particularly from cardiovascular, infectious and crisis-related causes — so
+    this is not a "solved" disease, and self-management quality plausibly moves the needle.</div></details>
+  </div>
+
+  <div class="insight" style="margin-top:22px"><strong>The bridge to the psychology:</strong>
+    cortisol is the body's central stress hormone, so a disease of cortisol is, almost by
+    definition, a disease with a psychological surface. That surface is under-mapped.</div>
+</section>
+
+<!-- ============ HEALTH-PSYCH CORE ============ -->
+<section class="panel-view" id="core">
+  <h2 class="section">Part II — The Health Psychology Core</h2>
+  <p class="lead">Organised by psychological construct rather than by organ. Relative maturity is
+    flagged on each: <span class="maturity m-green">🟢 developed</span>
+    <span class="maturity m-amber">🟡 emerging</span>
+    <span class="maturity m-red">🔴 thin / opportunity</span></p>
+
+  <details class="construct" open><summary>1 · Health-related quality of life &amp; PROMs <span class="maturity m-green">🟢</span></summary>
+    <div class="body">
+      <p>The most developed strand, and the natural anchor for health-psychology work.</p>
+      <ul>
+        <li><strong>AddiQoL</strong> is the disease-specific HRQoL instrument — developed by Løvås
+        et al. (2010) and validated across five European cohorts by Øksnes et al. (2012). 30-item
+        and 8-item forms, Cronbach's α ≈ 0.93. Women and older patients score worse.</li>
+        <li>Foundational subjective-health work (Løvås et al., 2002) found fatigue elevated in both
+        sexes, ~26% work disability (vs ~10% general population), and HRQoL impairment
+        <strong>comparable to chronic heart failure</strong> — a striking benchmark for a "treated"
+        condition.</li>
+        <li>Hahner et al. (2007) confirmed impaired subjective health in 256 patients on standard therapy.</li>
+      </ul>
+      <div class="insight"><strong>Measurement angle:</strong> the field leans on a single
+      disease-specific PROM plus generic tools (SF-36, EQ-5D). There is little published work on
+      measurement invariance, differential item functioning, or responsiveness of AddiQoL across
+      subgroups — a genuine psychometric gap, not just a clinical one.</div>
+    </div>
+  </details>
+
+  <details class="construct"><summary>2 · Fatigue and vitality <span class="maturity m-green">🟢</span></summary>
+    <div class="body"><p>Fatigue is the single most consistently reported symptom and the one least
+    corrected by "adequate" replacement. It dominates patient-reported symptom lists in every
+    survey, correlates with dosing timing, and overlaps heavily with QoL and mood — making it hard
+    to model as an independent construct. It is the symptom most often cited by patients as the gap
+    between "biochemically fine" and "feeling well."</p></div>
+  </details>
+
+  <details class="construct"><summary>3 · Affective &amp; psychiatric morbidity <span class="maturity m-green">🟢</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Thomsen et al. (2006)</strong> — Danish register; affective-disorder rate
+        elevated ~2.7× overall, ~2.1× in the Addison's subgroup specifically.</li>
+        <li><strong>Stewart et al. (2016)</strong> — US database; depression OR ~2.4 in PAI; elevated anxiety.</li>
+        <li><strong>Harasymiw et al. (2023)</strong> — adrenal-insufficiency youth; raised
+        depression/anxiety prevalence and antidepressant use.</li>
+      </ul>
+      <div class="insight"><strong>Caveat:</strong> several registry studies pool PAI with secondary
+      AI and CAH; PAI-specific breakdowns are the exception, so prevalence estimates should be read
+      as indicative.</div>
+    </div>
+  </details>
+
+  <details class="construct"><summary>4 · Cognition &amp; subjective cognitive complaints <span class="maturity m-amber">🟡</span></summary>
+    <div class="body">
+      <p>A real, unresolved tension in the literature:</p>
+      <ul>
+        <li>One cluster (South African group: Henry, Thomas, Ross) reports
+        <strong>episodic/verbal memory impairment</strong>, substantially mediated by disrupted sleep.</li>
+        <li>Another (Berlin: Schultebraucks et al.; Swedish registry: Van't Westeinde et al., 2022)
+        finds <strong>objective cognition largely preserved</strong> but <strong>subjective</strong>
+        executive difficulty and mental fatigue — worse at lower glucocorticoid doses.</li>
+        <li>A crossover study found fludrocortisone (raising mineralocorticoid-receptor occupancy)
+        improved verbal memory and mood — a neat mechanistic hint that the <em>type</em> and
+        <em>timing</em> of replacement, not just the amount, shapes cognition.</li>
+        <li>The systematic review (Ramos-Leví et al., 2022) found only ~10 eligible articles, 3
+        directly on cognition — the evidence base is genuinely small.</li>
+      </ul>
+      <div class="insight"><strong>Health-psychology reading:</strong> subjective cognitive
+      complaints may diverge from objective performance — a classic health-psychology phenomenon
+      (symptom perception ≠ measured deficit) and an under-exploited research seam here.</div>
+    </div>
+  </details>
+
+  <details class="construct"><summary>5 · Illness representations, coping &amp; adjustment <span class="maturity m-red">🔴</span></summary>
+    <div class="body"><p>This is where the field is thinnest — and therefore most open. Despite
+    cortisol being <em>the</em> stress hormone, there is very little Addison's-specific work using
+    core health-psychology frameworks: Leventhal's Common-Sense Model (illness perceptions → coping
+    → outcomes), self-efficacy, or adjustment trajectories. Dedicated, validated illness-perception
+    studies in PAI are close to absent. <strong>For someone building a health-psychology research
+    programme, this is the clearest white space.</strong></p></div>
+  </details>
+
+  <details class="construct"><summary>6 · Self-management, adherence &amp; behaviour change <span class="maturity m-amber">🟡</span></summary>
+    <div class="body">
+      <p>Crisis prevention is fundamentally a behaviour-change problem, and the literature is
+      starting to treat it that way.</p>
+      <ul>
+        <li><strong>Education alone is insufficient.</strong> Hahner et al. (2015) found crises
+        occurred at ~8.3 per 100 patient-years <em>even in educated patients</em>, with prior crisis
+        the strongest predictor of future crisis. Knowing the rules ≠ executing them under acute stress.</li>
+        <li>A 2024 review (Martel-Duguech et al.) stresses that preventive education and parenteral
+        hydrocortisone self-administration must be taught <strong>repeatedly</strong> — implicitly
+        conceding that one-shot education fails as a behaviour-change mechanism.</li>
+        <li>The behavioural sticking points are textbook health psychology: sick-day-rule adherence
+        under illness-related cognitive load, <strong>self-efficacy</strong> for self-injection
+        (many patients are afraid to inject), and the intention–action gap during the exact
+        physiological state (a crisis) that degrades decision-making.</li>
+        <li>A <strong>COM-B / Behaviour Change Wheel</strong> lens fits almost perfectly and is
+        barely applied: capability (knowledge + injection skill), opportunity (kit, supportive
+        other, emergency card), motivation (fear, fatalism, denial of severity).</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="construct"><summary>7 · Psychological stress as a physiological trigger <span class="maturity m-amber">🟡</span></summary>
+    <div class="body"><p>Uniquely for this condition, <em>psychological</em> stress is not just an
+    outcome but a <strong>direct precipitant of physical crisis</strong> — emotional stress accounts
+    for roughly 20% of crisis triggers in prospective data. This creates a bidirectional loop
+    (stress → cortisol demand → crisis risk → anxiety → more stress) that is conceptually rich and
+    almost entirely unstudied as a psychological mechanism. Stress-management and emotion-regulation
+    interventions have an unusually direct physiological rationale here.</p></div>
+  </details>
+
+  <details class="construct"><summary>8 · Lived experience, identity &amp; qualitative work <span class="maturity m-amber">🟡</span></summary>
+    <div class="body"><p>The smallest but fastest-growing strand. Recurrent themes (often recruited
+    via patient organisations such as ADSHG and the Pituitary Foundation): self-management learned
+    <strong>autodidactically</strong> rather than taught; <strong>hypervigilance</strong> and the
+    cognitive burden of constant risk-monitoring; the "<strong>invisible illness</strong>" identity
+    problem (looking well while managing a lethal condition); and gaps in <em>professional</em>
+    knowledge that force patients into expert-patient roles. Fertile ground for IPA (interpretative
+    phenomenological analysis) and identity-focused work.</p></div>
+  </details>
+
+  <details class="construct"><summary>9 · Social, occupational &amp; sexual wellbeing <span class="maturity m-amber">🟡</span></summary>
+    <div class="body">
+      <ul>
+        <li><strong>Work:</strong> elevated disability and absenteeism recur across surveys;
+        occupational health is under-theorised.</li>
+        <li><strong>Sexual wellbeing:</strong> women show reduced circulating androgens (Erichsen et
+        al., 2010); dysfunction is framed as multifactorial and under-investigated, especially in men
+        and post-menopausal women. The <strong>DHEA</strong> adjunct literature (modest, inconsistent
+        effects) is the cautionary tale of a once-promising psychological lever that didn't deliver
+        robustly.</li>
+        <li><strong>Relationships/caregivers:</strong> family and partner burden is mentioned but
+        essentially unstudied.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details class="construct"><summary>10 · Digital &amp; behavioural interventions <span class="maturity m-red">🔴→🟡</span></summary>
+    <div class="body"><p>Early app-based and Behaviour-Change-Wheel-designed self-management tools
+    are appearing (e.g. structured digital support for sick-day rules and crisis preparedness).
+    Evidence is preliminary. Given the behavioural nature of crisis prevention, this is a plausible
+    growth area — and one where a hyper-personalisation / profiling approach could be genuinely
+    novel.</p></div>
+  </details>
+</section>
+
+<!-- ============ THEORY & GAPS ============ -->
+<section class="panel-view" id="theory">
+  <h2 class="section">Part III–V — Theory, Trends &amp; Gaps</h2>
+  <p class="lead">Mapping mainstream health-psychology models onto Addison's shows how little of
+    this has been done — each row is an open research line.</p>
+
+  <h3>Theoretical scaffolding</h3>
+  <table>
+    <thead><tr><th>Framework</th><th>Natural application to PAI</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><b>Common-Sense Model</b> (Leventhal)</td><td>Illness perceptions (timeline, control, consequences) → coping → QoL and adherence</td><td><span class="maturity m-red">🔴 barely applied</span></td></tr>
+      <tr><td><b>Social Cognitive Theory</b> (Bandura)</td><td>Self-efficacy for sick-day dosing &amp; self-injection as the key mediator of crisis prevention</td><td><span class="maturity m-red">🔴 implicit only</span></td></tr>
+      <tr><td><b>COM-B / Behaviour Change Wheel</b></td><td>Diagnosing <em>why</em> educated patients still don't act in a crisis; designing interventions</td><td><span class="maturity m-red">🔴 open</span></td></tr>
+      <tr><td><b>Transactional stress–coping</b> (Lazarus &amp; Folkman)</td><td>Appraisal of stressors that are <em>literally</em> physiologically dangerous here</td><td><span class="maturity m-red">🔴 open</span></td></tr>
+      <tr><td><b>Self-Regulation / symptom perception</b></td><td>Subjective cognitive/fatigue complaints vs objective measures</td><td><span class="maturity m-amber">🟡 hinted</span></td></tr>
+      <tr><td><b>Psychometric / measurement theory</b></td><td>Invariance, DIF and responsiveness of AddiQoL across demographic subgroups</td><td><span class="maturity m-red">🔴 wide open</span></td></tr>
+    </tbody>
+  </table>
+  <div class="insight">The measurement row is worth underlining: the field has <em>one</em> validated
+    disease-specific PROM and almost no published invariance testing. If your interest runs toward
+    psychometrics and norms, that's a defensible, under-occupied niche with a clear methodological
+    contribution.</div>
+
+  <div class="grid2" style="margin-top:26px">
+    <div class="box">
+      <h3>Part IV — Trends</h3>
+      <ol style="padding-left:18px;margin:0">
+        <li>Reframing from "treated and fine" to "<strong>treated with residual psychological burden</strong>."</li>
+        <li>Rise of <strong>patient-reported outcomes</strong> as legitimate endpoints (AddiQoL's adoption is the marker).</li>
+        <li>Therapeutic interest in restoring the cortisol <strong>rhythm</strong> (modified-release, infusion) — putting psychological outcomes at the centre of biomedical trials.</li>
+        <li>Crisis prevention migrating from "educate harder" to <strong>behaviour-change science</strong> — slowly.</li>
+        <li><strong>Qualitative and lived-experience work</strong> emerging from a near-zero base.</li>
+      </ol>
+    </div>
+    <div class="box soft">
+      <h3>Part V — Gaps</h3>
+      <ol style="padding-left:18px;margin:0">
+        <li><strong>Illness perceptions, coping and adjustment</strong> essentially unmapped — the single biggest open seam.</li>
+        <li>The <strong>intention–action gap</strong> in crisis self-management described but not explained with behavioural models.</li>
+        <li><strong>Subjective vs objective cognition</strong> divergence unresolved and under-theorised.</li>
+        <li><strong>Psychological stress as a crisis trigger</strong> has a strong physiological rationale but no serious psychological-mechanism literature.</li>
+        <li><strong>Psychometric depth is shallow</strong> — no published invariance/DIF work on the main PROM.</li>
+        <li>Whole populations under-studied: men, older adults, post-menopausal women, caregivers.</li>
+        <li>Most psychiatric-prevalence data <strong>pools PAI</strong> with other adrenal insufficiencies.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH DIRECTIONS ============ -->
+<section class="panel-view" id="directions">
+  <h2 class="section">Part VI — Where to Take the Research</h2>
+  <p class="lead">A pragmatic ladder, lightest to most ambitious. The MRes project most naturally
+    lives on the first two or three rungs.</p>
+
+  <ol class="ladder">
+    <li><b>An illness-perception study in PAI</b><span>Brief IPQ + AddiQoL + a coping measure —
+      low-cost, fills the most obvious gap, and generates a Common-Sense Model for the condition.</span></li>
+    <li><b>A COM-B diagnosis of the crisis self-management failure</b><span>Qualitative + survey,
+      mapping capability / opportunity / motivation barriers to self-injection and sick-day dosing;
+      directly intervention-relevant.</span></li>
+    <li><b>A psychometric paper on AddiQoL</b><span>Measurement invariance / DIF across sex, age and
+      (if data allow) neurodivergent vs neurotypical respondents; methodologically defensible and
+      under-occupied.</span></li>
+    <li><b>A theory-driven, possibly digital intervention</b><span>Self-management / stress-management
+      with a self-efficacy mediator and crisis incidence as a distal outcome.</span></li>
+  </ol>
+
+  <div class="box" style="margin-top:24px">
+    <h3>Benchmarks that would shift the field</h3>
+    <ul>
+      <li>A <strong>validated PAI illness-perception model</strong> linked to outcomes.</li>
+      <li>A <strong>behaviour-change intervention that demonstrably reduces crises</strong> — not just knowledge scores.</li>
+      <li><strong>PROM invariance evidence</strong> that lets subgroup QoL comparisons actually mean something.</li>
+    </ul>
+  </div>
+
+  <div class="note">Caveats &amp; attribution: "thin / 🔴" judgements are relative to the biomedical
+    literature and based on systematic-review evidence plus the absence of dedicated studies in
+    targeted searches — absence of evidence, read with caution. Several psychiatric-prevalence
+    studies pool PAI with secondary AI / CAH. Patient-organisation sources are used only for the
+    lived-experience angle, not as peer-reviewed evidence. This is a landscape and trend map, not an
+    exhaustive systematic review.</div>
+</section>
+
+<!-- ============ EVIDENCE MAP ============ -->
+<section class="panel-view" id="evidence">
+  <h2 class="section">Evidence Map — research across every angle</h2>
+  <p class="lead">Aggregated from open scholarly APIs (Europe PMC, ClinicalTrials.gov, OpenAlex,
+    Crossref) plus a curated community registry. Counts are angle incidence — one record can sit
+    under several angles — so read them as presence and emphasis.</p>
+
+  <h3>Coverage by angle <span class="count">Addison's baseline</span></h3>
+  <table class="cov">
+    <tbody id="coverage-rows"></tbody>
+  </table>
+
+  <h3 style="margin-top:34px">Research by angle</h3>
+  <div id="angle-sections"></div>
+</section>
+
+<!-- ============ COMPARATORS ============ -->
+<section class="panel-view" id="comparators">
+  <h2 class="section">What a comparator reveals about where the research went</h2>
+  <p class="lead">Addison's disease set against two reference conditions. A comparator exposes the
+    <em>shape of attention</em> — which angles a field has invested in, and which it has left dark.</p>
+
+  <div class="box">
+    <h3>1 · Addison's vs hypoparathyroidism — coverage by angle</h3>
+    <p class="meta">Record counts from the evidence map (Addison's baseline = 18; hypoparathyroidism
+      = 6). Angle incidence, not true literature volume.</p>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--accent)"></i>Addison's baseline</span>
+      <span><i class="dot" style="background:var(--comp)"></i>Hypoparathyroidism</span>
+    </div>
+    <table class="cov"><tbody id="comp-rows"></tbody></table>
+  </div>
+
+  <div class="box" style="margin-top:22px">
+    <h3>2 · Addison's vs ME/CFS — relative research emphasis</h3>
+    <p class="meta">A <em>qualitative</em> characterisation of how much each field has invested per
+      angle (0–4 scale), not record counts. ME/CFS is the sharper comparator: its literature is the
+      near-mirror image of Addison's.</p>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--accent)"></i>Addison's</span>
+      <span><i class="dot" style="background:var(--comp2)"></i>ME/CFS</span>
+    </div>
+    <table class="cov"><tbody id="mecfs-rows"></tbody></table>
+    <div class="insight" style="margin-top:16px">The biomedical rows lean to Addison's; the
+      psychosocial rows lean to ME/CFS. The two conditions have almost <strong>opposite centres of
+      gravity</strong> — which is the whole point of using a comparator. Emphasis ratings are
+      interpretive, meant for orientation, not bibliometric measurement.</div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<section class="panel-view" id="community">
+  <h2 class="section">Community &amp; lived-experience leads</h2>
+  <p class="lead">Patient/community sources are tracked as leads and accessed only via legitimate
+    routes (official Graph / LinkedIn / Reddit APIs, RSS, or owner permission) — logged-in feeds are
+    never scraped.</p>
+
+  <table>
+    <thead><tr><th>Source</th><th>Type</th><th>Legitimate access / note</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://www.addisonsdisease.org.uk/" target="_blank" rel="noopener">Addison's Disease Self-Help Group (ADSHG)</a></td><td>patient-advocacy</td><td>Recruits participants for qualitative self-management research (UK). Public website / published resources; partner for data with permission.</td></tr>
+      <tr><td><a href="https://www.reddit.com/r/AddisonsDisease/" target="_blank" rel="noopener">AddisonsDisease subreddit</a></td><td>social-community</td><td>Lived-experience signal; ingest only via the official Reddit API (OAuth) — not scraping.</td></tr>
+      <tr><td><a href="https://www.nice.org.uk/guidance/ng243" target="_blank" rel="noopener">NICE 2024 Guideline (adrenal insufficiency)</a></td><td>NICE</td><td>Identification and management of adrenal insufficiency.</td></tr>
+      <tr><td><a href="https://www.facebook.com/HypoparathyroidismResearchandInfo/" target="_blank" rel="noopener">Hypoparathyroidism Research and Info (Facebook)</a></td><td>social-community</td><td>Relevant via APS-1, where hypoparathyroidism and Addison's co-occur. Meta Graph API (Page Public Content Access) or owner permission — not scraping.</td></tr>
+      <tr><td><a href="https://rarediseases.org/rare-diseases/addisons-disease/" target="_blank" rel="noopener">NORD — Addison's Disease</a></td><td>advocacy-reference</td><td>Authoritative lay/clinical summaries; good for well-being framing. Public reference pages.</td></tr>
+      <tr><td><a href="https://www.pituitary.org.uk/" target="_blank" rel="noopener">The Pituitary Foundation</a></td><td>patient-advocacy</td><td>Co-recruits adrenal-crisis self-management study cohorts. Public website / published resources.</td></tr>
+      <tr><td><a href="https://www.hra.nhs.uk/planning-and-improving-research/application-summaries/research-summaries/understanding-patients-experiences-of-addisons-disease-v13/" target="_blank" rel="noopener">Understanding patients' experiences of Addison's disease (HRA)</a></td><td>NHS Health Research Authority</td><td>Study summary.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:32px">Resources extracted from the hypoparathyroidism comparator cohort</h3>
+  <ul class="records">
+    <li><a href="https://pubmed.ncbi.nlm.nih.gov/2217012/" target="_blank" rel="noopener">Venepuncture for calcium assays: should we still avoid the tourniquet?</a><div class="meta">measurement-preanalytical · Diagnosis; Medical / clinical</div></li>
+    <li><a href="https://parathyroiduk.org/" target="_blank" rel="noopener">The Full Picture of Hypoparathyroidism — UK patient-experience report</a><div class="meta">patient-experience-report · QoL &amp; well-being; Self-management</div></li>
+    <li><a href="https://parathyroiduk.org/wp-content/uploads/2018/05/Living-with-chronic-hypoparathyroidism-final-report.pdf" target="_blank" rel="noopener">Living with chronic hypoparathyroidism — final report (PDF)</a><div class="meta">shared-resource · Comorbidity (APS-1)</div></li>
+    <li><a href="https://www.ese-hormones.org/publications/directory/a-standardised-european-emergency-card-for-adult-patients-with-hypoparathyroidism/" target="_blank" rel="noopener">Standardised European Emergency Card for Hypoparathyroidism (ESE, 18 languages)</a><div class="meta">society-patient-coproduction · Emergency; Self-management</div></li>
+    <li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=gender+differences+hypoparathyroidism+complications" target="_blank" rel="noopener">Gender differences in long-term complications of chronic hypoparathyroidism: a systematic review (2026)</a><div class="meta">systematic-review · Epidemiology; Medical / clinical; QoL</div></li>
+  </ul>
+</section>
+
+</div>
+
+<footer>
+  Aggregated from open scholarly APIs (Europe PMC, ClinicalTrials.gov, OpenAlex, Crossref) plus a
+  curated community registry, and a health-psychology literature landscape (~85% psychology / 15%
+  medical). Research-discovery and landscape material only — <strong>not medical advice</strong>.
+  Adrenal crisis is a medical emergency. · Compiled for Conor McCallion's MRes project · 2026-06-16.
+</footer>
+
+<script>
+  /* ---------- Tab switching ---------- */
+  const tabs = document.querySelectorAll('.tab');
+  const views = document.querySelectorAll('.panel-view');
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    views.forEach(v=>v.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.target).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  /* ---------- Data ---------- */
+  const coverage = [
+    ["Self-management & lived experience",9],["Genetics & aetiology",7],
+    ["Emergency / adrenal crisis",6],["Quality of life & well-being",6],
+    ["Medical / clinical",5],["Comorbidity (APS-1)",4],
+    ["Treatment & therapeutics",3],["Epidemiology",3],
+    ["Diagnosis",2],["Psychological / mental health",1],
+    ["Paediatric",0],["Pregnancy & reproductive",0]
+  ];
+  const maxCov = 9;
+
+  const angles = [
+    {id:"medical", title:"Medical / clinical", recs:[
+      {y:2025,t:"Modified-release hydrocortisone (Chronocort vs Plenadren) in adrenal insufficiency: a double-blind study",u:"https://www.endocrine-abstracts.org/",m:"ECE-ESPE 2025 (Endocrine Abstracts) · conference-abstract"},
+      {y:2025,t:"Factors influencing self-management of adrenal crisis in patients with adrenal insufficiency: a qualitative study",u:"https://ec.bioscientifica.com/view/journals/ec/14/5/EC-24-0651.xml",m:"Endocrine Connections · journal-article"},
+      {y:2021,t:"Autoimmune polyendocrine syndrome type 1: an Italian survey on 158 patients",u:"https://link.springer.com/article/10.1007/s40618-021-01585-6",m:"J Endocrinological Investigation · journal-article"},
+      {y:2021,t:"Characterization of the clinical and genetic spectrum of APS type 1 in a Chinese case series",u:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8254246/",m:"Frontiers in Immunology · journal-article"}
+    ]},
+    {id:"diagnosis", title:"Diagnosis", recs:[
+      {y:2024,t:"Primary adrenal insufficiency in adults: When to suspect, how to diagnose and manage",u:"https://www.ccjm.org/content/91/9/553",m:"Cleveland Clinic Journal of Medicine · review"},
+      {y:2024,t:"Recent developments in the diagnosis and treatment of Addison's disease",u:"https://www.ijcmph.com/index.php/ijcmph/article/view/13295",m:"Int J Community Med Public Health · journal-article"}
+    ]},
+    {id:"treatment", title:"Treatment & therapeutics", recs:[
+      {y:2025,t:"Modified-release hydrocortisone (Chronocort vs Plenadren) in adrenal insufficiency",u:"https://www.endocrine-abstracts.org/",m:"ECE-ESPE 2025 · conference-abstract"},
+      {y:2024,t:"Treatment and Prevention of Adrenal Crisis and Family Education",u:"https://jcrpe.org/articles/treatment-and-prevention-of-adrenal-crisis-and-family-education/jcrpe.galenos.2024.2024-6-12-S",m:"J Clin Res Pediatr Endocrinol · journal-article"},
+      {y:2024,t:"Recent developments in the diagnosis and treatment of Addison's disease",u:"https://www.ijcmph.com/index.php/ijcmph/article/view/13295",m:"Int J Community Med Public Health · journal-article"}
+    ]},
+    {id:"emergency", title:"Emergency / adrenal crisis", recs:[
+      {y:2025,t:"Factors influencing self-management of adrenal crisis: a qualitative study",u:"https://ec.bioscientifica.com/view/journals/ec/14/5/EC-24-0651.xml",m:"Endocrine Connections · journal-article"},
+      {y:2024,t:"Guidance for the prevention and emergency management of adult patients with adrenal insufficiency",u:"https://www.sciencedirect.com/science/article/pii/S1470211824035176",m:"Clinical Medicine · guideline"},
+      {y:2024,t:"Adrenal Crisis (StatPearls)",u:"https://www.ncbi.nlm.nih.gov/books/NBK499968/",m:"StatPearls · review"},
+      {y:2024,t:"Treatment and Prevention of Adrenal Crisis and Family Education",u:"https://jcrpe.org/articles/treatment-and-prevention-of-adrenal-crisis-and-family-education/jcrpe.galenos.2024.2024-6-12-S",m:"J Clin Res Pediatr Endocrinol · journal-article"},
+      {y:2024,t:"Addison's Disease and Adrenal Crisis: A Phenomenological Study of the Patient Experience",u:"https://www.nursingpraxis.org/article/90846-addison-s-disease-and-adrenal-crisis-a-phenomenological-study-of-the-patient-experience",m:"Nursing Praxis in Aotearoa New Zealand · journal-article"}
+    ]},
+    {id:"epidemiology", title:"Epidemiology", recs:[
+      {y:2025,t:"Income and work loss in patients with Addison's disease: a nationwide population-based study",u:"https://academic.oup.com/ejendo/article/192/3/170/8029136",m:"European Journal of Endocrinology · journal-article"},
+      {y:2025,t:"Increased mortality in primary adrenal insufficiency: a systematic review and meta-analysis",u:"https://academic.oup.com/ejendo/article/193/4/S53/8253265",m:"European Journal of Endocrinology · review"}
+    ]},
+    {id:"genetics", title:"Genetics & aetiology", recs:[
+      {y:2021,t:"Autoimmune polyendocrine syndrome type 1: an Italian survey on 158 patients",u:"https://link.springer.com/article/10.1007/s40618-021-01585-6",m:"J Endocrinological Investigation · journal-article"},
+      {y:2021,t:"Characterization of the clinical and genetic spectrum of APS type 1 in a Chinese case series",u:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8254246/",m:"Frontiers in Immunology · journal-article"},
+      {y:2020,t:"Hypoparathyroidism as the single major component for decades of APS type 1",u:"https://pubmed.ncbi.nlm.nih.gov/33434148/",m:"Endocrinol Diabetes Metab Case Rep · case-report"},
+      {y:2013,t:"What affects the quality of life in autoimmune Addison's disease?",u:"https://pubmed.ncbi.nlm.nih.gov/23322510/",m:"Clinical Endocrinology · journal-article"},
+      {y:2012,t:"Quality of life in European patients with Addison's disease: validity of AddiQoL",u:"https://pubmed.ncbi.nlm.nih.gov/22090270/",m:"European Journal of Endocrinology · journal-article"},
+      {y:2010,t:"Development of a Disease-Specific QoL Questionnaire in Addison's Disease (AddiQoL)",u:"https://www.researchgate.net/publication/40693432",m:"J Clin Endocrinol Metab · journal-article"}
+    ]},
+    {id:"comorbidity", title:"Comorbidity (APS-1)", recs:[
+      {y:2021,t:"Autoimmune polyendocrine syndrome type 1: an Italian survey on 158 patients",u:"https://link.springer.com/article/10.1007/s40618-021-01585-6",m:"J Endocrinological Investigation · journal-article"},
+      {y:2021,t:"Characterization of the clinical and genetic spectrum of APS type 1 in a Chinese case series",u:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8254246/",m:"Frontiers in Immunology · journal-article"},
+      {y:2020,t:"Hypoparathyroidism as the single major component for decades of APS type 1",u:"https://pubmed.ncbi.nlm.nih.gov/33434148/",m:"Endocrinol Diabetes Metab Case Rep · case-report"}
+    ]},
+    {id:"psychological", title:"Psychological / mental health", recs:[
+      {y:2017,t:"No Difference in Mood and QoL in DHEA-S Deficient Adults with Addison's Disease vs Type 2 Diabetes",u:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5425479/",m:"Frontiers in Endocrinology · journal-article"}
+    ]},
+    {id:"qol", title:"Quality of life & well-being", recs:[
+      {y:2025,t:"Income and work loss in patients with Addison's disease: a nationwide population-based study",u:"https://academic.oup.com/ejendo/article/192/3/170/8029136",m:"European Journal of Endocrinology · journal-article"},
+      {y:2017,t:"No Difference in Mood and QoL in DHEA-S Deficient Adults with Addison's Disease vs Type 2 Diabetes",u:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5425479/",m:"Frontiers in Endocrinology · journal-article"},
+      {y:2013,t:"What affects the quality of life in autoimmune Addison's disease?",u:"https://pubmed.ncbi.nlm.nih.gov/23322510/",m:"Clinical Endocrinology · journal-article"},
+      {y:2012,t:"Quality of life in European patients with Addison's disease: validity of AddiQoL",u:"https://pubmed.ncbi.nlm.nih.gov/22090270/",m:"European Journal of Endocrinology · journal-article"},
+      {y:2010,t:"Development of a Disease-Specific QoL Questionnaire in Addison's Disease (AddiQoL)",u:"https://www.researchgate.net/publication/40693432",m:"J Clin Endocrinol Metab · journal-article"}
+    ]},
+    {id:"selfmgmt", title:"Self-management & lived experience", recs:[
+      {y:2025,t:"Factors influencing self-management of adrenal crisis: a qualitative study",u:"https://ec.bioscientifica.com/view/journals/ec/14/5/EC-24-0651.xml",m:"Endocrine Connections · journal-article"},
+      {y:2024,t:"Treatment and Prevention of Adrenal Crisis and Family Education",u:"https://jcrpe.org/articles/treatment-and-prevention-of-adrenal-crisis-and-family-education/jcrpe.galenos.2024.2024-6-12-S",m:"J Clin Res Pediatr Endocrinol · journal-article"},
+      {y:2024,t:"Addison's Disease and Adrenal Crisis: A Phenomenological Study of the Patient Experience",u:"https://www.nursingpraxis.org/article/90846-addison-s-disease-and-adrenal-crisis-a-phenomenological-study-of-the-patient-experience",m:"Nursing Praxis in Aotearoa New Zealand · journal-article"},
+      {y:2016,t:"Long-Term Condition Self-Management Support in Online Communities: A Meta-Synthesis",u:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4807245/",m:"J Med Internet Res · review"}
+    ]}
+  ];
+
+  const compData = [
+    ["Genetics & aetiology",6,0],["Emergency / adrenal crisis",5,1],
+    ["Quality of life & well-being",5,2],["Medical / clinical",4,2],
+    ["Self-management & lived experience",4,2],["Treatment & therapeutics",3,0],
+    ["Comorbidity (APS-1)",3,2],["Diagnosis",2,1],["Epidemiology",2,1],
+    ["Psychological / mental health",1,0],["Paediatric",0,0],["Pregnancy & reproductive",0,0]
+  ];
+
+  const mecfs = [
+    ["Biomedical aetiology / mechanism",4,3],["Diagnosis",3,3],
+    ["Pharmacological treatment",4,1],["Emergency / acute management",4,1],
+    ["Epidemiology / burden",3,3],["Illness perceptions",1,4],
+    ["Coping & psychosocial adjustment",1,4],["Behavioural interventions (CBT / self-mgmt)",2,4],
+    ["Fatigue as a research focus",2,4],["Quality of life / PROMs",3,3],
+    ["Lived experience / patient voice",2,4],["Mental health (depression / anxiety)",2,3]
+  ];
+
+  /* ---------- Renderers ---------- */
+  const covBody = document.getElementById('coverage-rows');
+  coverage.forEach(([a,n])=>{
+    covBody.insertAdjacentHTML('beforeend',
+      `<tr><td class="angle">${a}</td><td><div class="bar" style="width:${Math.max(n/maxCov*100,1)}%"></div></td><td class="n">${n}</td></tr>`);
+  });
+
+  const sec = document.getElementById('angle-sections');
+  angles.forEach(g=>{
+    let lis = g.recs.map(r=>`<li><span class="yr">${r.y}</span><a href="${r.u}" target="_blank" rel="noopener">${r.t}</a><div class="meta">${r.m}</div></li>`).join('');
+    sec.insertAdjacentHTML('beforeend',
+      `<details class="construct"><summary>${g.title} <span class="count">${g.recs.length}</span></summary><div class="body"><ul class="records">${lis}</ul></div></details>`);
+  });
+
+  const compBody = document.getElementById('comp-rows');
+  const maxC = 6;
+  compData.forEach(([a,base,comp])=>{
+    compBody.insertAdjacentHTML('beforeend',
+      `<tr><td class="angle">${a}</td>
+       <td><div class="bar" style="width:${Math.max(base/maxC*100,0.5)}%"></div></td><td class="n">${base}</td>
+       <td><div class="bar comp" style="width:${Math.max(comp/maxC*100,0.5)}%"></div></td><td class="n">${comp}</td></tr>`);
+  });
+
+  const meBody = document.getElementById('mecfs-rows');
+  mecfs.forEach(([a,ad,me])=>{
+    meBody.insertAdjacentHTML('beforeend',
+      `<tr><td class="angle">${a}</td>
+       <td><div class="bar" style="width:${ad/4*100}%"></div></td><td class="n">${ad}</td>
+       <td><div class="bar" style="width:${me/4*100}%;background:var(--comp2)"></div></td><td class="n">${me}</td></tr>`);
+  });
+</script>
+</body>
+</html>
