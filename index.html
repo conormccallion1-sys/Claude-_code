@@ -6,184 +6,166 @@
 <title>Addison's Disease &amp; the MRes Project — Interactive Research Dossier</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0b0e13; --bg2:#0f141b; --panel:#151b24; --panel2:#1a212c; --line:#28313e;
-    --ink:#eef3f9; --muted:#94a3b4; --faint:#6b7787;
-    --accent:#56c7ff; --accent2:#7ef0c0; --comp:#ffb454; --comp2:#c98bff; --pink:#ff8fab;
-    --green:#7ef0c0; --amber:#ffc06b; --red:#ff8a9b;
-    --grad:linear-gradient(120deg,#56c7ff 0%,#7ef0c0 50%,#c98bff 100%);
-    --shadow:0 18px 50px rgba(0,0,0,.45);
-    --serif:'Fraunces',Georgia,serif;
+    --paper:#F4EFE6; --sheet:#FFFFFF; --sheet2:#FBF8F2;
+    --ink:#20292B; --teal:#173A43; --teal2:#1E4B57; --gold:#B0772B; --gold2:#C9923F;
+    --muted:#6E7B7E; --faint:#9AA09D; --line:#E2DDD2; --line2:#EFEAE0;
+    --green:#2F7D5F; --amber:#B0772B; --red:#B0473E; --mauve:#7A4F63;
+    --serif:'Lora',Georgia,serif;
     --sans:'Inter',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+    --shadow:0 1px 40px rgba(20,40,45,.09);
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
-       font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
-  /* animated ambient background */
-  body::before{content:"";position:fixed;inset:0;z-index:-2;
-    background:
-      radial-gradient(60vw 60vw at 12% -5%,rgba(86,199,255,.10),transparent 60%),
-      radial-gradient(50vw 50vw at 92% 8%,rgba(201,139,255,.10),transparent 60%),
-      radial-gradient(55vw 55vw at 50% 105%,rgba(126,240,192,.08),transparent 60%);}
-  a{color:var(--accent);text-decoration:none;transition:.15s}
-  a:hover{color:var(--accent2)}
+  html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font-family:var(--serif);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+  a{color:var(--teal2);text-decoration:none;border-bottom:1px solid rgba(176,119,43,.35);transition:.15s}
+  a:hover{color:var(--gold);border-bottom-color:var(--gold)}
 
   /* ---- Header ---- */
-  header.top{position:sticky;top:0;z-index:50;
-    background:rgba(11,14,19,.78);backdrop-filter:blur(14px) saturate(140%);
-    border-bottom:1px solid var(--line)}
-  .top-inner{max-width:1120px;margin:0 auto;padding:13px 24px;display:flex;
-    align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .brand{display:flex;align-items:center;gap:13px}
-  .logo{width:40px;height:40px;border-radius:12px;flex:0 0 auto;position:relative;
-    background:var(--grad);box-shadow:0 0 26px rgba(86,199,255,.45);overflow:hidden}
-  .logo::after{content:"";position:absolute;inset:0;
-    background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.55),transparent 45%)}
-  .brand h1{font-family:var(--serif);font-size:17px;margin:0;line-height:1.15;letter-spacing:-.01em}
-  .brand p{margin:0;color:var(--muted);font-size:12px}
-  .top-meta{color:var(--faint);font-size:11.5px;text-align:right}
+  header.top{background:var(--paper);border-bottom:1px solid var(--line)}
+  .top-inner{max-width:920px;margin:0 auto;padding:26px 64px 20px;display:flex;
+    align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .brand .eyebrow{margin:0 0 8px}
+  .brand h1{font-family:var(--serif);font-weight:700;font-size:26px;margin:0;line-height:1.1;
+    color:var(--teal);letter-spacing:-.01em}
+  .brand p{margin:6px 0 0;color:var(--muted);font-size:13.5px;font-style:italic}
+  .top-meta{font-family:var(--sans);color:var(--faint);font-size:11px;text-align:right;
+    text-transform:uppercase;letter-spacing:.08em;line-height:1.7}
 
   /* ---- Tabs ---- */
-  nav.tabs{position:sticky;top:67px;z-index:40;
-    background:rgba(11,14,19,.78);backdrop-filter:blur(14px) saturate(140%);
-    border-bottom:1px solid var(--line);overflow-x:auto}
-  .tabs-inner{max-width:1120px;margin:0 auto;padding:0 16px;display:flex;gap:2px}
+  nav.tabs{position:sticky;top:0;z-index:40;background:rgba(244,239,230,.94);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto}
+  .tabs-inner{max-width:920px;margin:0 auto;padding:0 60px;display:flex;gap:2px}
   .tab{appearance:none;background:none;border:none;color:var(--muted);
-    font-family:var(--sans);font-size:13.5px;font-weight:500;padding:14px 15px;cursor:pointer;
-    position:relative;white-space:nowrap;transition:.15s}
-  .tab:hover{color:var(--ink)}
-  .tab.active{color:var(--ink)}
-  .tab.active::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:2.5px;
-    border-radius:3px;background:var(--grad)}
+    font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    padding:14px 13px;cursor:pointer;position:relative;white-space:nowrap;transition:.15s}
+  .tab:hover{color:var(--teal)}
+  .tab.active{color:var(--gold)}
+  .tab.active::after{content:"";position:absolute;left:11px;right:11px;bottom:-1px;height:2.5px;background:var(--gold)}
 
-  /* ---- Hero ---- */
-  .hero{max-width:1120px;margin:0 auto;padding:54px 24px 14px;position:relative}
-  .eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-    color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;margin:0 0 14px}
-  .hero h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5vw,48px);
-    line-height:1.05;letter-spacing:-.02em;margin:0 0 16px;max-width:16ch}
-  .hero h2 em{font-style:italic;color:transparent;background:var(--grad);
-    -webkit-background-clip:text;background-clip:text}
-  .hero .lead{color:var(--muted);font-size:17px;max-width:62ch;margin:0}
-  .curve{position:absolute;right:24px;top:46px;width:min(340px,38vw);opacity:.9;pointer-events:none}
-  @media(max-width:820px){.curve{display:none}}
+  /* ---- Eyebrow ---- */
+  .eyebrow{font-family:var(--sans);font-size:9.5pt;font-weight:700;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--gold);margin:0 0 12px}
 
-  /* ---- Layout ---- */
-  .wrap{max-width:1120px;margin:0 auto;padding:8px 24px 100px}
+  /* ---- Layout: the sheet ---- */
+  .wrap{max-width:920px;margin:30px auto 60px;padding:56px 64px 64px;
+    background:var(--sheet);box-shadow:var(--shadow);border:1px solid var(--line2)}
   .panel-view{display:none}
-  .panel-view.active{display:block;animation:fade .4s cubic-bezier(.2,.7,.3,1)}
-  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .panel-view.active{display:block;animation:fade .4s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-  h2.section{font-family:var(--serif);font-weight:600;font-size:27px;letter-spacing:-.01em;margin:6px 0 6px}
-  .lead{color:var(--muted);font-size:15.5px;margin:0 0 28px;max-width:74ch}
-  h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:34px 0 12px;letter-spacing:-.01em}
-  h3.kicker{display:flex;align-items:center;gap:10px}
-  h3.kicker::before{content:"";width:4px;height:20px;border-radius:3px;background:var(--grad)}
+  h2.section{font-family:var(--serif);font-weight:700;font-size:27px;line-height:1.14;
+    color:var(--teal);margin:0 0 8px;letter-spacing:-.01em}
+  .lead{color:var(--teal2);font-size:16.5px;font-style:italic;margin:0 0 28px;max-width:64ch;line-height:1.55}
+  h3{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--teal2);
+    margin:34px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+  h4{font-size:15.5px;margin:18px 0 6px;color:var(--teal2)}
+  p{margin:0 0 13px}
 
   /* ---- Cards / metrics ---- */
-  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0}
-  .card{background:linear-gradient(160deg,var(--panel),var(--bg2));
-    border:1px solid var(--line);border-radius:18px;padding:22px 18px;text-align:center;
-    position:relative;overflow:hidden;transition:.25s}
-  .card:hover{transform:translateY(-4px);border-color:rgba(86,199,255,.4);box-shadow:var(--shadow)}
-  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
-  .card .num{font-family:var(--serif);font-size:38px;font-weight:700;line-height:1;
-    color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text}
-  .card .lbl{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-top:8px}
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}
+  .card{background:var(--sheet2);border:1px solid var(--line);padding:18px 14px;text-align:center;
+    position:relative;transition:.2s}
+  .card::before{content:"";position:absolute;top:-1px;left:-1px;right:-1px;height:3px;background:var(--gold)}
+  .card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(20,40,45,.1)}
+  .card .num{font-family:var(--serif);font-size:30px;font-weight:700;line-height:1;color:var(--gold)}
+  .card .lbl{font-family:var(--sans);color:var(--muted);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.05em;margin-top:7px}
 
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  .box{background:linear-gradient(160deg,var(--panel),var(--bg2));
-    border:1px solid var(--line);border-radius:18px;padding:24px 26px}
-  .box.soft{background:var(--panel2)}
-  .box h3{margin-top:0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .box{background:var(--sheet2);border:1px solid var(--line);padding:22px 24px}
+  .box.soft{background:#F7F2E8}
+  .box h3:first-child{margin-top:0}
 
-  .maturity{font-size:12px;font-weight:700;padding:2px 9px;border-radius:7px;margin-left:8px;
-    vertical-align:middle;white-space:nowrap}
-  .m-green{background:rgba(126,240,192,.14);color:var(--green)}
-  .m-amber{background:rgba(255,192,107,.14);color:var(--amber)}
-  .m-red{background:rgba(255,138,155,.14);color:var(--red)}
+  /* ---- Maturity tags ---- */
+  .maturity{font-family:var(--sans);font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;
+    margin-left:8px;vertical-align:middle;white-space:nowrap}
+  .m-green{background:rgba(47,125,95,.12);color:var(--green)}
+  .m-amber{background:rgba(176,119,43,.14);color:var(--amber)}
+  .m-red{background:rgba(176,71,62,.12);color:var(--red)}
 
-  /* ---- Constructs / accordions ---- */
-  .construct{background:linear-gradient(160deg,var(--panel),var(--bg2));
-    border:1px solid var(--line);border-radius:16px;padding:2px 22px;margin:13px 0;
-    transition:.2s}
-  .construct:hover{border-color:rgba(86,199,255,.28)}
-  .construct[open]{border-color:rgba(86,199,255,.35);box-shadow:0 10px 34px rgba(0,0,0,.3)}
-  .construct summary{cursor:pointer;list-style:none;padding:17px 0;font-size:16px;
-    font-weight:600;display:flex;align-items:center;gap:8px}
+  /* ---- Accordions ---- */
+  .construct{background:var(--sheet2);border:1px solid var(--line);padding:2px 22px;margin:12px 0;transition:.2s}
+  .construct:hover{border-color:var(--gold)}
+  .construct[open]{box-shadow:0 8px 26px rgba(20,40,45,.07)}
+  .construct summary{cursor:pointer;list-style:none;padding:16px 0;font-family:var(--serif);
+    font-size:16.5px;font-weight:600;color:var(--teal);display:flex;align-items:center;gap:9px}
   .construct summary::-webkit-details-marker{display:none}
-  .construct summary::before{content:"";width:9px;height:9px;border-right:2px solid var(--accent);
-    border-bottom:2px solid var(--accent);transform:rotate(-45deg);transition:.2s;
-    margin-right:4px;flex:0 0 auto}
+  .construct summary::before{content:"";width:8px;height:8px;border-right:2px solid var(--gold);
+    border-bottom:2px solid var(--gold);transform:rotate(-45deg);transition:.2s;flex:0 0 auto}
   .construct[open] summary::before{transform:rotate(45deg)}
-  .construct .body{padding:2px 0 20px;border-top:1px solid var(--line);margin-top:-2px;padding-top:16px;
-    animation:fade .35s ease}
+  .construct .body{padding:2px 0 18px;border-top:1px solid var(--line);padding-top:14px;animation:fade .3s ease}
   .construct ul{margin:8px 0;padding-left:20px}
-  .construct li{margin:7px 0}
-  .insight{background:rgba(126,240,192,.06);border:1px solid rgba(126,240,192,.18);
-    border-left:3px solid var(--accent2);border-radius:10px;padding:12px 16px;margin:14px 0;
-    font-size:13.5px;color:var(--muted)}
-  .insight strong{color:var(--ink)}
+  .construct li{margin:6px 0}
+
+  .insight{background:#F7F2E8;border:1px solid var(--line);border-left:3px solid var(--gold);
+    padding:12px 16px;margin:14px 0;font-size:14px;color:var(--teal2);font-style:italic}
+  .insight strong{color:var(--ink);font-style:normal}
 
   /* ---- Tables ---- */
   table{width:100%;border-collapse:collapse;margin:16px 0}
-  th{text-align:left;color:var(--faint);font-weight:600;font-size:11.5px;
-    padding:10px 12px;border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.05em}
-  td{padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}
-  tbody tr{transition:.12s}
-  tr:hover td{background:rgba(86,199,255,.04)}
+  th{font-family:var(--sans);text-align:left;color:var(--muted);font-weight:700;font-size:10.5px;
+    padding:10px 12px;border-bottom:1.5px solid var(--teal2);text-transform:uppercase;letter-spacing:.06em}
+  td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14.5px}
+  tr:hover td{background:var(--sheet2)}
 
   /* ---- Coverage bars ---- */
   .cov td{padding:7px 8px;border:none}
   .cov tr:hover td{background:none}
-  .cov .angle{width:240px;color:var(--ink)}
-  .cov .n{width:32px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
-  .bartrack{background:rgba(255,255,255,.04);border-radius:9px;overflow:hidden}
-  .bar{height:16px;border-radius:9px;min-width:3px;width:0;
-    background:linear-gradient(90deg,var(--accent),var(--accent2));
-    transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
-  .bar.comp{background:linear-gradient(90deg,#ffb454,#ff8a5c)}
-  .bar.me{background:linear-gradient(90deg,#c98bff,#ff8fab)}
-  .legend{display:flex;gap:22px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:10px 0 6px}
-  .dot{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:7px;vertical-align:middle}
+  .cov .angle{width:240px;color:var(--ink);font-size:13.5px}
+  .cov .n{width:30px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;
+    font-family:var(--sans);font-weight:700;font-size:12px}
+  .bartrack{background:#EDE7DB;border-radius:3px;overflow:hidden}
+  .bar{height:15px;border-radius:3px;min-width:3px;width:0;
+    background:linear-gradient(90deg,var(--teal2),#2E7D8A);transition:width 1.05s cubic-bezier(.2,.8,.2,1)}
+  .bar.comp{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+  .bar.me{background:linear-gradient(90deg,var(--mauve),#A86C82)}
+  .legend{font-family:var(--sans);display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:10px 0 4px}
+  .dot{width:12px;height:12px;border-radius:3px;display:inline-block;margin-right:7px;vertical-align:middle}
 
   /* ---- Records ---- */
   ul.records{list-style:none;margin:0;padding:0}
   ul.records li{padding:12px 0;border-bottom:1px solid var(--line)}
   ul.records li:last-child{border-bottom:none}
-  .yr{display:inline-block;color:var(--accent2);font-variant-numeric:tabular-nums;margin-right:10px;
-    font-weight:600;font-size:13px}
-  .meta{color:var(--faint);font-size:12.5px;margin-top:4px}
-  .count{font-size:11.5px;color:#0b0e13;background:var(--accent2);
-    border-radius:999px;padding:1px 10px;margin-left:8px;vertical-align:middle;font-weight:700}
+  .yr{font-family:var(--sans);display:inline-block;color:var(--gold);font-variant-numeric:tabular-nums;
+    margin-right:10px;font-weight:700;font-size:12.5px}
+  .meta{font-family:var(--sans);color:var(--muted);font-size:12px;margin-top:4px}
+  .count{font-family:var(--sans);font-size:11px;color:var(--sheet);background:var(--teal2);
+    border-radius:999px;padding:1px 9px;margin-left:8px;vertical-align:middle;font-weight:700}
 
-  .note{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--comp);
-    border-radius:10px;padding:13px 16px;color:var(--muted);font-size:13px;margin:18px 0}
+  .note{font-family:var(--sans);background:var(--sheet2);border:1px solid var(--line);
+    border-left:3px solid var(--gold);padding:12px 16px;color:var(--muted);font-size:12.5px;margin:18px 0}
 
   /* ---- Ladder ---- */
-  ol.ladder{counter-reset:step;list-style:none;padding:0;margin:20px 0}
-  ol.ladder li{position:relative;padding:16px 18px 16px 62px;
-    background:linear-gradient(160deg,var(--panel),var(--bg2));
-    border:1px solid var(--line);border-radius:14px;margin:12px 0;transition:.2s}
-  ol.ladder li:hover{transform:translateX(5px);border-color:rgba(86,199,255,.35)}
+  ol.ladder{counter-reset:step;list-style:none;padding:0;margin:18px 0}
+  ol.ladder li{position:relative;padding:15px 18px 15px 60px;background:var(--sheet2);
+    border:1px solid var(--line);margin:11px 0;transition:.2s}
+  ol.ladder li:hover{transform:translateX(4px);border-color:var(--gold)}
   ol.ladder li::before{counter-increment:step;content:counter(step);
-    position:absolute;left:16px;top:15px;width:30px;height:30px;border-radius:10px;
-    background:var(--grad);color:#0b0e13;font-weight:700;display:flex;
-    align-items:center;justify-content:center;font-size:15px}
-  ol.ladder li b{display:block;margin-bottom:3px;font-size:15.5px}
-  ol.ladder li span{color:var(--muted);font-size:13.5px}
+    position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:50%;
+    background:var(--teal);color:var(--sheet);font-family:var(--serif);font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:14px}
+  ol.ladder li b{display:block;margin-bottom:2px;font-size:15.5px;color:var(--teal)}
+  ol.ladder li span{color:var(--muted);font-size:14px}
 
-  footer{max-width:1120px;margin:0 auto;padding:26px 24px 70px;color:var(--faint);
-    font-size:12px;border-top:1px solid var(--line)}
+  /* ---- Hero curve ---- */
+  .hero{position:relative}
+  .curve{position:absolute;right:0;top:4px;width:min(300px,34vw);opacity:.95;pointer-events:none}
+  @media(max-width:780px){.curve{display:none}}
+
+  footer{font-family:var(--sans);max-width:920px;margin:0 auto;padding:6px 64px 60px;color:var(--faint);
+    font-size:11.5px;line-height:1.7}
 
   @media (max-width:720px){
+    .top-inner,.tabs-inner{padding-left:22px;padding-right:22px}
+    .wrap{padding:34px 24px;margin:16px auto}
+    footer{padding-left:24px;padding-right:24px}
     .cards{grid-template-columns:repeat(2,1fr)}
     .grid2{grid-template-columns:1fr}
-    .cov .angle{width:148px}
-    nav.tabs{top:96px}
+    .cov .angle{width:150px}
   }
 </style>
 </head>
@@ -192,11 +174,9 @@
 <header class="top">
   <div class="top-inner">
     <div class="brand">
-      <div class="logo"></div>
-      <div>
-        <h1>Addison's Disease &amp; the MRes Project</h1>
-        <p>Interactive research dossier · health psychology landscape, evidence map &amp; project framing</p>
-      </div>
+      <p class="eyebrow">Interactive Research Dossier</p>
+      <h1>Addison's Disease &amp; the MRes Project</h1>
+      <p>Health-psychology landscape, evidence map &amp; project framing</p>
     </div>
     <div class="top-meta">Compiled for Conor McCallion<br>Evidence generated 2026-06-16</div>
   </div>
@@ -205,6 +185,7 @@
 <nav class="tabs" id="tabs">
   <div class="tabs-inner">
     <button class="tab active" data-target="overview">Overview</button>
+    <button class="tab" data-target="mres">MRes Project</button>
     <button class="tab" data-target="primer">Medical Primer</button>
     <button class="tab" data-target="core">Health-Psych Core</button>
     <button class="tab" data-target="theory">Theory &amp; Gaps</button>
@@ -219,23 +200,18 @@
 
 <!-- ============ OVERVIEW ============ -->
 <section class="panel-view active" id="overview">
-  <div class="hero" style="padding-left:0;padding-right:0">
-    <svg class="curve" viewBox="0 0 340 150" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <linearGradient id="cg" x1="0" y1="0" x2="340" y2="0">
-          <stop offset="0" stop-color="#56c7ff"/><stop offset=".5" stop-color="#7ef0c0"/><stop offset="1" stop-color="#c98bff"/>
-        </linearGradient>
-      </defs>
-      <path d="M2 120 C40 118 55 30 95 28 C135 26 150 90 190 96 C225 101 250 70 280 66 C305 63 325 78 338 80"
+  <div class="hero">
+    <svg class="curve" viewBox="0 0 300 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs><linearGradient id="cg" x1="0" y1="0" x2="300" y2="0">
+        <stop offset="0" stop-color="#1E4B57"/><stop offset="1" stop-color="#B0772B"/></linearGradient></defs>
+      <path d="M2 112 C36 110 50 26 86 24 C122 22 136 84 172 90 C204 95 226 64 252 60 C276 56 292 72 298 74"
         stroke="url(#cg)" stroke-width="3" stroke-linecap="round">
-        <animate attributeName="stroke-dasharray" from="0 700" to="700 0" dur="2.2s" fill="freeze"/>
-      </path>
-      <path d="M2 132 C60 130 110 128 170 130 C230 132 290 131 338 131"
-        stroke="#3a4658" stroke-width="2" stroke-dasharray="3 5" opacity=".7"/>
-      <text x="2" y="148" fill="#6b7787" font-family="Inter" font-size="9">flat replacement vs natural rhythm</text>
+        <animate attributeName="stroke-dasharray" from="0 640" to="640 0" dur="2.1s" fill="freeze"/></path>
+      <path d="M2 122 C60 120 110 119 160 121 C220 123 280 122 298 122" stroke="#D9D0BF" stroke-width="2" stroke-dasharray="3 5"/>
+      <text x="2" y="138" fill="#9AA09D" font-family="Inter" font-size="8.5">flat replacement vs natural rhythm</text>
     </svg>
     <p class="eyebrow">Health Psychology · Primary Adrenal Insufficiency</p>
-    <h2>A disease of cortisol is a disease with a <em>psychological surface</em></h2>
+    <h2 class="section" style="font-size:32px;max-width:18ch">A disease of cortisol is a disease with a psychological surface</h2>
     <p class="lead">Modern treatment keeps people biochemically adequate but frequently leaves them
       not feeling well. This dossier brings together the full body of work — a health-psychology
       literature landscape, an evidence map across every research angle, two comparator analyses,
@@ -251,7 +227,7 @@
 
   <div class="grid2">
     <div class="box">
-      <h3 class="kicker">The central argument</h3>
+      <h3>The central argument</h3>
       <p>Care keeps people <strong>biochemically adequate</strong> but frequently leaves them
       <strong>not feeling well</strong> — persistent fatigue, low mood, cognitive fog and impaired
       quality of life. The leading hypothesis is that tablets replace the hormone but not its
@@ -261,13 +237,13 @@
       physiological trigger</strong> of crisis. Few conditions map onto health psychology so cleanly.</p>
     </div>
     <div class="box soft">
-      <h3 class="kicker">Where the white space is</h3>
+      <h3>Where the white space is</h3>
       <ul style="padding-left:18px">
-        <li><span class="maturity m-red">🔴 wide open</span> Illness perceptions, coping &amp; adjustment</li>
-        <li><span class="maturity m-red">🔴 open</span> The intention–action gap in crisis self-management</li>
-        <li><span class="maturity m-red">🔴 wide open</span> Psychometric depth of AddiQoL (invariance / DIF)</li>
-        <li><span class="maturity m-amber">🟡 hinted</span> Subjective vs objective cognition divergence</li>
-        <li><span class="maturity m-amber">🟡 emerging</span> Stress as a crisis mechanism</li>
+        <li><span class="maturity m-red">wide open</span> Illness perceptions, coping &amp; adjustment</li>
+        <li><span class="maturity m-red">open</span> The intention–action gap in crisis self-management</li>
+        <li><span class="maturity m-red">wide open</span> Psychometric depth of AddiQoL (invariance / DIF)</li>
+        <li><span class="maturity m-amber">hinted</span> Subjective vs objective cognition divergence</li>
+        <li><span class="maturity m-amber">emerging</span> Stress as a crisis mechanism</li>
       </ul>
       <div class="insight">The single biggest open seam is <strong>illness perceptions, coping and
       adjustment in PAI</strong> — close to absent despite being the natural home for a
@@ -275,10 +251,11 @@
     </div>
   </div>
 
-  <h3 class="kicker">How this dossier is organised</h3>
+  <h3>How this dossier is organised</h3>
   <table>
     <thead><tr><th>Tab</th><th>What's in it</th></tr></thead>
     <tbody>
+      <tr><td><b>MRes Project</b></td><td>The Ulster University study this dossier supports — aim, approach, supervisory team.</td></tr>
       <tr><td><b>Medical Primer</b></td><td>The ~15% of biology you need so the psychology makes sense — four facts that do all the work.</td></tr>
       <tr><td><b>Health-Psych Core</b></td><td>Ten psychological constructs, each flagged by maturity (developed / emerging / thin).</td></tr>
       <tr><td><b>Theory &amp; Gaps</b></td><td>Mainstream models mapped onto Addison's, plus the trends and the explicit gap list.</td></tr>
@@ -293,16 +270,98 @@
     Adrenal crisis is a medical emergency.</div>
 </section>
 
+<!-- ============ MRES PROJECT ============ -->
+<section class="panel-view" id="mres">
+  <p class="eyebrow">MRes · Ulster University · 2026/27</p>
+  <h2 class="section" style="max-width:22ch">Assessing the impact of adrenal insufficiency on health &amp; wellbeing in adults on the Island of Ireland</h2>
+  <p class="lead">A health-psychology and nutrition study that asks a deceptively simple question: if
+    patients on the same treatment report wildly different experiences, are there distinct subtypes
+    hiding inside the "one-size-fits-all" model — and could profiling them point toward tailored,
+    real-world management between clinic appointments?</p>
+
+  <div class="cards">
+    <div class="card"><div class="num">MRes</div><div class="lbl">pilot for a funded PhD</div></div>
+    <div class="card"><div class="num">IoI</div><div class="lbl">adults, Island of Ireland</div></div>
+    <div class="card"><div class="num">2</div><div class="lbl">profiling lenses: psych + nutrition</div></div>
+    <div class="card"><div class="num">3</div><div class="lbl">interdisciplinary supervisors</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>The gap this fills</h3>
+      <p>Even with lifelong steroid replacement, patients consistently report poor quality of life,
+      higher depression and anxiety, cognitive difficulty and significant fatigue — and the
+      management approach hasn't meaningfully changed in <strong>over sixty years</strong>. Around
+      <strong>40%</strong> will experience at least one life-threatening adrenal crisis.</p>
+      <p>What stands out from the literature is how <strong>individual</strong> the experience is:
+      different responses to the same medications, stressors and routines. Yet nobody has
+      systematically profiled these patients — nutritionally <em>and</em> psychologically — to test
+      whether distinct subtypes exist that might respond to tailored approaches. <strong>That's the
+      gap.</strong></p>
+    </div>
+    <div class="box soft">
+      <h3>Why it's the right seam</h3>
+      <p>It lands squarely on the landscape's biggest white space — <strong>illness perceptions,
+      coping and adjustment in PAI</strong> — while adding a genuinely novel
+      <strong>nutritional-profiling</strong> dimension that existing health-psychology work doesn't
+      touch.</p>
+      <div class="insight"><strong>Framing:</strong> a deliberate, well-scoped pilot — designed from
+      day one to de-risk and seed a funded PhD, not a standalone exercise.</div>
+    </div>
+  </div>
+
+  <h3>The approach</h3>
+  <ol class="ladder">
+    <li><b>Psychological profiling</b><span>Validated health-psychology instruments — illness
+      perceptions (Brief IPQ), disease-specific quality of life (AddiQoL), coping and self-efficacy —
+      to characterise how patients appraise and manage the condition.</span></li>
+    <li><b>Nutritional profiling</b><span>Dietary and biomarker methodology (including vitamin D),
+      drawing on the Nutrition Innovation Centre for Food and Health (NICHE) — a dimension absent from
+      the current PAI psychology literature.</span></li>
+    <li><b>Subtype identification</b><span>Bringing the two profiles together to test whether
+      meaningful patient subtypes emerge — the empirical basis for any future tailored intervention.</span></li>
+    <li><b>Toward tailored management</b><span>Using the subtypes to frame how real-world,
+      between-appointment self-management could be personalised — the question a funded PhD would
+      carry forward.</span></li>
+  </ol>
+
+  <h3>Supervisory team — Ulster University</h3>
+  <div class="box" style="margin-bottom:12px"><b>Dr Liz Simpson</b> — <span style="color:var(--muted)">Health
+    psychology &amp; behaviour-change theory; the interplay between biological mechanisms and
+    psychological wellbeing.</span></div>
+  <div class="box" style="margin-bottom:12px"><b>Dr Pamela Magee</b> — <span style="color:var(--muted)">Nutritional
+    science via NICHE; vitamin D, dietary interventions and biomarker methodology.</span></div>
+  <div class="box" style="margin-bottom:12px"><b>Prof Jacqueline McCormack</b> — <span style="color:var(--muted)">The
+    connector — research at the junction of nutrition and psychological function, with prior
+    collaborations across the team.</span></div>
+  <div class="insight">That interdisciplinary combination — health psychology <em>plus</em> nutrition
+    science under one roof — is rare, and is what makes this project feasible at Ulster.</div>
+
+  <h3>The researcher</h3>
+  <div class="box">
+    <p>A chemist by training — BSc and MSc at Queen's University Belfast, then 7+ years as a Research
+    Chemist at Almac Sciences in purification and process optimisation under GMP conditions:
+    interpreting complex analytical data, solving problems under pressure, delivering outputs that had
+    to be right first time. That rigour with data transfers directly into health research.</p>
+    <p>The motivation is not only academic. Lived experience of managing a chronic condition is what
+    draws the work toward patient-centred research — the conviction that the real challenge isn't the
+    diagnosis or the prescription, but everything that happens afterwards: the uncertainty, the
+    self-management, and the gaps where patients are left on their own.</p>
+  </div>
+
+  <div class="note">Project framing compiled from the applicant's own statement and the Ulster
+    University project description. Research-planning material — <strong>not medical advice</strong>.</div>
+</section>
+
 <!-- ============ MEDICAL PRIMER ============ -->
 <section class="panel-view" id="primer">
   <h2 class="section">Part I — Medical Primer</h2>
   <p class="lead">Read once, then move on. Addison's disease (primary adrenal insufficiency, PAI)
     is destruction of the adrenal cortex — autoimmune in ~80–90% of adult cases in the developed
-    world — so the body stops making <strong>cortisol</strong> (the stress/circadian glucocorticoid)
-    and usually <strong>aldosterone</strong> (salt/fluid balance). Onset is typically 30–50, with a
-    female skew.</p>
+    world — so the body stops making cortisol (the stress/circadian glucocorticoid) and usually
+    aldosterone (salt/fluid balance). Onset is typically 30–50, with a female skew.</p>
 
-  <h3 class="kicker">Four facts that do all the work for the psychology</h3>
+  <h3>Four facts that do all the work for the psychology</h3>
 
   <details class="construct" open><summary>1 · Treatment replaces the hormone but not the rhythm</summary>
     <div class="body">Lifelong oral hydrocortisone (15–25 mg/day, split doses) plus fludrocortisone
@@ -332,11 +391,11 @@
 <section class="panel-view" id="core">
   <h2 class="section">Part II — The Health Psychology Core</h2>
   <p class="lead">Organised by psychological construct rather than by organ. Relative maturity is
-    flagged on each: <span class="maturity m-green">🟢 developed</span>
-    <span class="maturity m-amber">🟡 emerging</span>
-    <span class="maturity m-red">🔴 thin / opportunity</span></p>
+    flagged on each: <span class="maturity m-green">developed</span>
+    <span class="maturity m-amber">emerging</span>
+    <span class="maturity m-red">thin / opportunity</span></p>
 
-  <details class="construct" open><summary>1 · Health-related quality of life &amp; PROMs <span class="maturity m-green">🟢</span></summary>
+  <details class="construct" open><summary>1 · Health-related quality of life &amp; PROMs <span class="maturity m-green">developed</span></summary>
     <div class="body">
       <p>The most developed strand, and the natural anchor for health-psychology work.</p>
       <ul>
@@ -356,7 +415,7 @@
     </div>
   </details>
 
-  <details class="construct"><summary>2 · Fatigue and vitality <span class="maturity m-green">🟢</span></summary>
+  <details class="construct"><summary>2 · Fatigue and vitality <span class="maturity m-green">developed</span></summary>
     <div class="body"><p>Fatigue is the single most consistently reported symptom and the one least
     corrected by "adequate" replacement. It dominates patient-reported symptom lists in every
     survey, correlates with dosing timing, and overlaps heavily with QoL and mood — making it hard
@@ -364,7 +423,7 @@
     between "biochemically fine" and "feeling well."</p></div>
   </details>
 
-  <details class="construct"><summary>3 · Affective &amp; psychiatric morbidity <span class="maturity m-green">🟢</span></summary>
+  <details class="construct"><summary>3 · Affective &amp; psychiatric morbidity <span class="maturity m-green">developed</span></summary>
     <div class="body">
       <ul>
         <li><strong>Thomsen et al. (2006)</strong> — Danish register; affective-disorder rate
@@ -379,7 +438,7 @@
     </div>
   </details>
 
-  <details class="construct"><summary>4 · Cognition &amp; subjective cognitive complaints <span class="maturity m-amber">🟡</span></summary>
+  <details class="construct"><summary>4 · Cognition &amp; subjective cognitive complaints <span class="maturity m-amber">emerging</span></summary>
     <div class="body">
       <p>A real, unresolved tension in the literature:</p>
       <ul>
@@ -400,7 +459,7 @@
     </div>
   </details>
 
-  <details class="construct"><summary>5 · Illness representations, coping &amp; adjustment <span class="maturity m-red">🔴</span></summary>
+  <details class="construct"><summary>5 · Illness representations, coping &amp; adjustment <span class="maturity m-red">thin</span></summary>
     <div class="body"><p>This is where the field is thinnest — and therefore most open. Despite
     cortisol being <em>the</em> stress hormone, there is very little Addison's-specific work using
     core health-psychology frameworks: Leventhal's Common-Sense Model (illness perceptions → coping
@@ -409,7 +468,7 @@
     programme, this is the clearest white space.</strong></p></div>
   </details>
 
-  <details class="construct"><summary>6 · Self-management, adherence &amp; behaviour change <span class="maturity m-amber">🟡</span></summary>
+  <details class="construct"><summary>6 · Self-management, adherence &amp; behaviour change <span class="maturity m-amber">emerging</span></summary>
     <div class="body">
       <p>Crisis prevention is fundamentally a behaviour-change problem, and the literature is
       starting to treat it that way.</p>
@@ -431,7 +490,7 @@
     </div>
   </details>
 
-  <details class="construct"><summary>7 · Psychological stress as a physiological trigger <span class="maturity m-amber">🟡</span></summary>
+  <details class="construct"><summary>7 · Psychological stress as a physiological trigger <span class="maturity m-amber">emerging</span></summary>
     <div class="body"><p>Uniquely for this condition, <em>psychological</em> stress is not just an
     outcome but a <strong>direct precipitant of physical crisis</strong> — emotional stress accounts
     for roughly 20% of crisis triggers in prospective data. This creates a bidirectional loop
@@ -440,7 +499,7 @@
     interventions have an unusually direct physiological rationale here.</p></div>
   </details>
 
-  <details class="construct"><summary>8 · Lived experience, identity &amp; qualitative work <span class="maturity m-amber">🟡</span></summary>
+  <details class="construct"><summary>8 · Lived experience, identity &amp; qualitative work <span class="maturity m-amber">emerging</span></summary>
     <div class="body"><p>The smallest but fastest-growing strand. Recurrent themes (often recruited
     via patient organisations such as ADSHG and the Pituitary Foundation): self-management learned
     <strong>autodidactically</strong> rather than taught; <strong>hypervigilance</strong> and the
@@ -450,7 +509,7 @@
     phenomenological analysis) and identity-focused work.</p></div>
   </details>
 
-  <details class="construct"><summary>9 · Social, occupational &amp; sexual wellbeing <span class="maturity m-amber">🟡</span></summary>
+  <details class="construct"><summary>9 · Social, occupational &amp; sexual wellbeing <span class="maturity m-amber">emerging</span></summary>
     <div class="body">
       <ul>
         <li><strong>Work:</strong> elevated disability and absenteeism recur across surveys;
@@ -466,7 +525,7 @@
     </div>
   </details>
 
-  <details class="construct"><summary>10 · Digital &amp; behavioural interventions <span class="maturity m-red">🔴→🟡</span></summary>
+  <details class="construct"><summary>10 · Digital &amp; behavioural interventions <span class="maturity m-red">thin → emerging</span></summary>
     <div class="body"><p>Early app-based and Behaviour-Change-Wheel-designed self-management tools
     are appearing (e.g. structured digital support for sick-day rules and crisis preparedness).
     Evidence is preliminary. Given the behavioural nature of crisis prevention, this is a plausible
@@ -481,16 +540,16 @@
   <p class="lead">Mapping mainstream health-psychology models onto Addison's shows how little of
     this has been done — each row is an open research line.</p>
 
-  <h3 class="kicker">Theoretical scaffolding</h3>
+  <h3>Theoretical scaffolding</h3>
   <table>
     <thead><tr><th>Framework</th><th>Natural application to PAI</th><th>Status</th></tr></thead>
     <tbody>
-      <tr><td><b>Common-Sense Model</b> (Leventhal)</td><td>Illness perceptions (timeline, control, consequences) → coping → QoL and adherence</td><td><span class="maturity m-red">🔴 barely applied</span></td></tr>
-      <tr><td><b>Social Cognitive Theory</b> (Bandura)</td><td>Self-efficacy for sick-day dosing &amp; self-injection as the key mediator of crisis prevention</td><td><span class="maturity m-red">🔴 implicit only</span></td></tr>
-      <tr><td><b>COM-B / Behaviour Change Wheel</b></td><td>Diagnosing <em>why</em> educated patients still don't act in a crisis; designing interventions</td><td><span class="maturity m-red">🔴 open</span></td></tr>
-      <tr><td><b>Transactional stress–coping</b> (Lazarus &amp; Folkman)</td><td>Appraisal of stressors that are <em>literally</em> physiologically dangerous here</td><td><span class="maturity m-red">🔴 open</span></td></tr>
-      <tr><td><b>Self-Regulation / symptom perception</b></td><td>Subjective cognitive/fatigue complaints vs objective measures</td><td><span class="maturity m-amber">🟡 hinted</span></td></tr>
-      <tr><td><b>Psychometric / measurement theory</b></td><td>Invariance, DIF and responsiveness of AddiQoL across demographic subgroups</td><td><span class="maturity m-red">🔴 wide open</span></td></tr>
+      <tr><td><b>Common-Sense Model</b> (Leventhal)</td><td>Illness perceptions (timeline, control, consequences) → coping → QoL and adherence</td><td><span class="maturity m-red">barely applied</span></td></tr>
+      <tr><td><b>Social Cognitive Theory</b> (Bandura)</td><td>Self-efficacy for sick-day dosing &amp; self-injection as the key mediator of crisis prevention</td><td><span class="maturity m-red">implicit only</span></td></tr>
+      <tr><td><b>COM-B / Behaviour Change Wheel</b></td><td>Diagnosing <em>why</em> educated patients still don't act in a crisis; designing interventions</td><td><span class="maturity m-red">open</span></td></tr>
+      <tr><td><b>Transactional stress–coping</b> (Lazarus &amp; Folkman)</td><td>Appraisal of stressors that are <em>literally</em> physiologically dangerous here</td><td><span class="maturity m-red">open</span></td></tr>
+      <tr><td><b>Self-Regulation / symptom perception</b></td><td>Subjective cognitive/fatigue complaints vs objective measures</td><td><span class="maturity m-amber">hinted</span></td></tr>
+      <tr><td><b>Psychometric / measurement theory</b></td><td>Invariance, DIF and responsiveness of AddiQoL across demographic subgroups</td><td><span class="maturity m-red">wide open</span></td></tr>
     </tbody>
   </table>
   <div class="insight">The measurement row is worth underlining: the field has <em>one</em> validated
@@ -500,7 +559,7 @@
 
   <div class="grid2" style="margin-top:28px">
     <div class="box">
-      <h3 class="kicker">Part IV — Trends</h3>
+      <h3>Part IV — Trends</h3>
       <ol style="padding-left:18px;margin:0">
         <li>Reframing from "treated and fine" to "<strong>treated with residual psychological burden</strong>."</li>
         <li>Rise of <strong>patient-reported outcomes</strong> as legitimate endpoints (AddiQoL's adoption is the marker).</li>
@@ -510,7 +569,7 @@
       </ol>
     </div>
     <div class="box soft">
-      <h3 class="kicker">Part V — Gaps</h3>
+      <h3>Part V — Gaps</h3>
       <ol style="padding-left:18px;margin:0">
         <li><strong>Illness perceptions, coping and adjustment</strong> essentially unmapped — the single biggest open seam.</li>
         <li>The <strong>intention–action gap</strong> in crisis self-management described but not explained with behavioural models.</li>
@@ -544,7 +603,7 @@
   </ol>
 
   <div class="box" style="margin-top:24px">
-    <h3 class="kicker">Benchmarks that would shift the field</h3>
+    <h3>Benchmarks that would shift the field</h3>
     <ul>
       <li>A <strong>validated PAI illness-perception model</strong> linked to outcomes.</li>
       <li>A <strong>behaviour-change intervention that demonstrably reduces crises</strong> — not just knowledge scores.</li>
@@ -552,7 +611,7 @@
     </ul>
   </div>
 
-  <div class="note">Caveats &amp; attribution: "thin / 🔴" judgements are relative to the biomedical
+  <div class="note">Caveats &amp; attribution: "thin" judgements are relative to the biomedical
     literature and based on systematic-review evidence plus the absence of dedicated studies in
     targeted searches — absence of evidence, read with caution. Several psychiatric-prevalence
     studies pool PAI with secondary AI / CAH. Patient-organisation sources are used only for the
@@ -567,10 +626,10 @@
     Crossref) plus a curated community registry. Counts are angle incidence — one record can sit
     under several angles — so read them as presence and emphasis.</p>
 
-  <h3 class="kicker">Coverage by angle <span class="count">Addison's baseline</span></h3>
+  <h3>Coverage by angle <span class="count">Addison's baseline</span></h3>
   <table class="cov"><tbody id="coverage-rows"></tbody></table>
 
-  <h3 class="kicker" style="margin-top:34px">Research by angle</h3>
+  <h3 style="margin-top:34px">Research by angle</h3>
   <div id="angle-sections"></div>
 </section>
 
@@ -578,27 +637,27 @@
 <section class="panel-view" id="comparators">
   <h2 class="section">What a comparator reveals about where the research went</h2>
   <p class="lead">Addison's disease set against two reference conditions. A comparator exposes the
-    <em>shape of attention</em> — which angles a field has invested in, and which it has left dark.</p>
+    shape of attention — which angles a field has invested in, and which it has left dark.</p>
 
   <div class="box">
-    <h3 class="kicker">1 · Addison's vs hypoparathyroidism — coverage by angle</h3>
+    <h3>1 · Addison's vs hypoparathyroidism — coverage by angle</h3>
     <p class="meta">Record counts from the evidence map (Addison's baseline = 18; hypoparathyroidism
       = 6). Angle incidence, not true literature volume.</p>
     <div class="legend">
-      <span><i class="dot" style="background:linear-gradient(90deg,#56c7ff,#7ef0c0)"></i>Addison's baseline</span>
-      <span><i class="dot" style="background:linear-gradient(90deg,#ffb454,#ff8a5c)"></i>Hypoparathyroidism</span>
+      <span><i class="dot" style="background:linear-gradient(90deg,#1E4B57,#2E7D8A)"></i>Addison's baseline</span>
+      <span><i class="dot" style="background:linear-gradient(90deg,#B0772B,#C9923F)"></i>Hypoparathyroidism</span>
     </div>
     <table class="cov"><tbody id="comp-rows"></tbody></table>
   </div>
 
   <div class="box" style="margin-top:22px">
-    <h3 class="kicker">2 · Addison's vs ME/CFS — relative research emphasis</h3>
+    <h3>2 · Addison's vs ME/CFS — relative research emphasis</h3>
     <p class="meta">A <em>qualitative</em> characterisation of how much each field has invested per
       angle (0–4 scale), not record counts. ME/CFS is the sharper comparator: its literature is the
       near-mirror image of Addison's.</p>
     <div class="legend">
-      <span><i class="dot" style="background:linear-gradient(90deg,#56c7ff,#7ef0c0)"></i>Addison's</span>
-      <span><i class="dot" style="background:linear-gradient(90deg,#c98bff,#ff8fab)"></i>ME/CFS</span>
+      <span><i class="dot" style="background:linear-gradient(90deg,#1E4B57,#2E7D8A)"></i>Addison's</span>
+      <span><i class="dot" style="background:linear-gradient(90deg,#7A4F63,#A86C82)"></i>ME/CFS</span>
     </div>
     <table class="cov"><tbody id="mecfs-rows"></tbody></table>
     <div class="insight" style="margin-top:16px">The biomedical rows lean to Addison's; the
@@ -628,7 +687,7 @@
     </tbody>
   </table>
 
-  <h3 class="kicker" style="margin-top:32px">Resources extracted from the hypoparathyroidism comparator cohort</h3>
+  <h3 style="margin-top:32px">Resources extracted from the hypoparathyroidism comparator cohort</h3>
   <ul class="records">
     <li><a href="https://pubmed.ncbi.nlm.nih.gov/2217012/" target="_blank" rel="noopener">Venepuncture for calcium assays: should we still avoid the tourniquet?</a><div class="meta">measurement-preanalytical · Diagnosis; Medical / clinical</div></li>
     <li><a href="https://parathyroiduk.org/" target="_blank" rel="noopener">The Full Picture of Hypoparathyroidism — UK patient-experience report</a><div class="meta">patient-experience-report · QoL &amp; well-being; Self-management</div></li>
@@ -648,7 +707,6 @@
 </footer>
 
 <script>
-  /* ---------- Tab switching ---------- */
   const tabs = document.querySelectorAll('.tab');
   const views = document.querySelectorAll('.panel-view');
   tabs.forEach(t=>t.addEventListener('click',()=>{
@@ -660,7 +718,6 @@
     animateBars();
   }));
 
-  /* ---------- Data ---------- */
   const coverage = [
     ["Self-management & lived experience",9],["Genetics & aetiology",7],
     ["Emergency / adrenal crisis",6],["Quality of life & well-being",6],
@@ -746,7 +803,6 @@
     ["Lived experience / patient voice",2,4],["Mental health (depression / anxiety)",2,3]
   ];
 
-  /* ---------- Renderers ---------- */
   const covBody = document.getElementById('coverage-rows');
   coverage.forEach(([a,n])=>{
     covBody.insertAdjacentHTML('beforeend',
@@ -777,12 +833,9 @@
        <td><div class="bartrack"><div class="bar me" data-w="${me/4*100}"></div></div></td><td class="n">${me}</td></tr>`);
   });
 
-  /* ---------- Animate bars when their tab becomes visible ---------- */
   function animateBars(){
     requestAnimationFrame(()=>{
-      document.querySelectorAll('.panel-view.active .bar').forEach(b=>{
-        b.style.width = b.dataset.w + '%';
-      });
+      document.querySelectorAll('.panel-view.active .bar').forEach(b=>{ b.style.width = b.dataset.w + '%'; });
     });
   }
   animateBars();
