@@ -199,6 +199,52 @@ p{margin:.7em 0}
 .sigtag.ns{background:rgba(150,180,255,.08);color:var(--text-mute);border-color:var(--line)}
 .tbl-scroll{overflow-x:auto}
 
+/* ============================================================ CORTISOL RHYTHM */
+.rhythm-card{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:linear-gradient(180deg,rgba(10,16,34,.6),rgba(8,12,26,.4));box-shadow:var(--shadow)}
+.rhythm-card .daynight{position:absolute;inset:0;background:linear-gradient(90deg,rgba(40,60,130,.32) 0%,rgba(40,60,130,.18) 12%,transparent 26%,transparent 74%,rgba(40,60,130,.18) 88%,rgba(40,60,130,.32) 100%)}
+.rhythm-svg{display:block;width:100%;height:auto}
+.rhythm-svg .grid-l{stroke:rgba(150,180,255,.1);stroke-width:1}
+.rhythm-svg .axis-l{fill:var(--text-mute);font:600 13px var(--font-mono)}
+.rhythm-svg .curve{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.rhythm-svg .draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 2s var(--ease)}
+.rhythm.in .rhythm-svg .draw{stroke-dashoffset:0}
+.rhythm-svg .area{opacity:0;transition:opacity 1.2s ease 1s}
+.rhythm.in .rhythm-svg .area{opacity:1}
+.rhythm-svg .annot{opacity:0;transition:opacity .7s ease}
+.rhythm.in .rhythm-svg .annot{opacity:1;transition-delay:1.6s}
+.rhythm-svg .trav{filter:drop-shadow(0 0 6px var(--amber))}
+.rh-legend{display:flex;flex-wrap:wrap;gap:20px;padding:16px 22px 4px;font-size:.86rem;color:var(--text-soft)}
+.rh-legend i{display:inline-block;width:22px;height:0;border-top-width:3px;border-top-style:solid;margin-right:8px;vertical-align:4px;border-radius:3px}
+
+/* ============================================================ ITEM EXPLORER */
+.explorer{border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.03);padding:clamp(20px,3vw,30px);position:relative;box-shadow:var(--shadow)}
+.exp-toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.exp-toolbar .legend2{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--text-soft)}
+.exp-toolbar .legend2 i{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:7px;vertical-align:-1px}
+.toggle-btn{font-family:var(--font-mono);font-size:.8rem;font-weight:600;color:var(--ink);border:none;cursor:pointer;padding:9px 16px;border-radius:999px;background:linear-gradient(90deg,var(--amber),var(--teal));transition:transform .25s var(--ease),filter .25s}
+.toggle-btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.toggle-btn.off{background:rgba(255,255,255,.08);color:var(--text-soft)}
+.exp-axis{position:relative;height:210px;margin:6px 0 2px}
+.exp-axis .baseline{position:absolute;left:0;right:0;top:50%;height:2px;background:linear-gradient(90deg,var(--teal),var(--amber),var(--coral));border-radius:2px;opacity:.55}
+.exp-axis .tick{position:absolute;top:50%;width:1px;height:14px;background:var(--line-strong);transform:translateY(-50%)}
+.exp-axis .tick span{position:absolute;top:16px;left:50%;transform:translateX(-50%);font:600 11px var(--font-mono);color:var(--text-mute);white-space:nowrap}
+.idot{position:absolute;top:50%;width:15px;height:15px;border-radius:50%;transform:translate(-50%,-50%) scale(0);cursor:pointer;transition:transform .5s var(--ease),opacity .5s ease,background .3s;background:linear-gradient(135deg,var(--amber),var(--teal));box-shadow:0 0 0 0 rgba(255,194,77,0)}
+.explorer.in .idot{transform:translate(-50%,-50%) scale(1)}
+.idot:hover,.idot:focus{outline:none;transform:translate(-50%,-50%) scale(1.5);z-index:5;box-shadow:0 0 0 6px rgba(255,194,77,.18)}
+.idot.excl{background:linear-gradient(135deg,var(--coral),var(--coral-deep));box-shadow:0 0 0 2px rgba(255,95,134,.3)}
+.idot.worst{background:radial-gradient(circle,#fff,var(--coral) 60%);box-shadow:0 0 14px var(--coral),0 0 0 4px rgba(255,95,134,.25)}
+.idot.hidden{opacity:0;transform:translate(-50%,-50%) scale(0);pointer-events:none}
+.idot[data-lift="1"]{margin-top:-26px}.idot[data-lift="2"]{margin-top:26px}
+.idot[data-lift="3"]{margin-top:-52px}.idot[data-lift="4"]{margin-top:52px}
+.exp-tip{position:absolute;z-index:20;max-width:240px;background:var(--ink-2);border:1px solid var(--line-strong);border-radius:12px;padding:12px 14px;font-size:.84rem;color:var(--text);box-shadow:0 18px 40px -16px rgba(0,0,0,.8);opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s;pointer-events:none}
+.exp-tip.show{opacity:1;transform:none}
+.exp-tip b{display:block;font-family:var(--font-disp);font-size:1rem;margin-bottom:6px;line-height:1.2}
+.exp-tip .row{display:flex;justify-content:space-between;gap:12px;font-family:var(--font-mono);font-size:.76rem;color:var(--text-soft);margin:2px 0}
+.exp-tip .flag{margin-top:8px;font-size:.74rem;font-weight:600}
+.exp-tip .flag.ex{color:var(--coral)}.exp-tip .flag.ok{color:var(--teal)}
+.exp-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:8px;font-size:.84rem;color:var(--text-mute)}
+.exp-foot .count b{color:var(--amber);font-family:var(--font-mono)}
+
 /* ============================================================ FUNNEL */
 .funnel-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
 @media(max-width:900px){.funnel-layout{grid-template-columns:1fr;gap:26px}}
@@ -333,7 +379,8 @@ footer .cite b{color:var(--text-soft);font-weight:600}
 <nav class="dots" id="dots" aria-label="Section navigation">
   <a href="#hero" data-i="0"><span>Overview</span></a>
   <a href="#problem" data-i="1"><span>The gap</span></a>
-  <a href="#data" data-i="2"><span>The evidence</span></a>
+  <a href="#rhythm" data-i="2"><span>The root cause</span></a>
+  <a href="#data" data-i="3"><span>The evidence</span></a>
   <a href="#idea" data-i="3"><span>The idea</span></a>
   <a href="#build" data-i="4"><span>How it was built</span></a>
   <a href="#proof" data-i="5"><span>Does it work?</span></a>
@@ -387,6 +434,55 @@ footer .cite b{color:var(--text-soft);font-weight:600}
       <div class="legend"><span><i style="background:rgba(41,236,210,.55)"></i>Healthy norm</span><span><i style="background:var(--coral)"></i>Addison's patients</span></div>
     </div>
     <p class="lead reveal d2" style="margin-top:26px">But generic tools are blunt. They were built for whole populations, not for the specific symptoms of one disease — so they may <b class="em-amber">miss the very changes a new treatment is meant to fix</b>. The authors set out to build a sharper instrument.</p>
+  </div>
+</section>
+
+<!-- ============================== CORTISOL RHYTHM ============================== -->
+<section id="rhythm">
+  <div class="wrap">
+    <div class="narrow">
+      <span class="kicker k-violet reveal">The root cause</span>
+      <h2 class="reveal d1">Why "normal" bloodwork <span class="grad">still feels wrong</span></h2>
+      <p class="lead reveal d2">A healthy body releases cortisol in a daily rhythm — almost nothing overnight, a sharp peak as you wake, tapering through the day. Tablets can't reproduce that curve: patients get spikes and troughs, and crucially <b class="em-amber">no natural early-morning rise</b>. That mismatch is what AddiQoL is built to capture.</p>
+    </div>
+
+    <div class="rhythm reveal d2" id="rhythm-fig" style="margin-top:30px">
+      <div class="rhythm-card">
+        <div class="daynight"></div>
+        <svg class="rhythm-svg" viewBox="0 0 800 340" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cortisol over 24 hours: healthy rhythm versus tablet replacement">
+          <!-- horizontal gridlines -->
+          <g id="rh-grid"></g>
+          <!-- area under healthy curve -->
+          <path class="area" id="rh-area" fill="url(#rhFill)"></path>
+          <defs>
+            <linearGradient id="rhFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffc24d" stop-opacity=".34"/>
+              <stop offset="1" stop-color="#ffc24d" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- curves (d set by JS) -->
+          <path class="curve draw" id="rh-replace" stroke="#29ecd2" stroke-width="3.5" stroke-dasharray="2 9"></path>
+          <path class="curve draw" id="rh-healthy" stroke="#ffc24d" stroke-width="4"></path>
+          <!-- traveling sun dot -->
+          <circle class="trav" id="rh-trav" r="7" fill="#ffe6a6"></circle>
+          <!-- axis labels -->
+          <g id="rh-xaxis"></g>
+          <!-- annotations -->
+          <g class="annot">
+            <line x1="266" y1="40" x2="266" y2="92" stroke="#ffc24d" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <text x="274" y="42" class="axis-l" fill="#ffd884">natural wake-up peak</text>
+            <text x="274" y="58" class="axis-l" fill="#9fb2c5" font-size="11">missing on tablets →</text>
+            <line x1="70" y1="250" x2="70" y2="300" stroke="#29ecd2" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <text x="80" y="250" class="axis-l" fill="#7fe6d8" font-size="11">overnight: flat &amp; low</text>
+          </g>
+        </svg>
+      </div>
+      <div class="rh-legend">
+        <span><i style="border-color:#ffc24d"></i>Healthy cortisol rhythm</span>
+        <span><i style="border-color:#29ecd2;border-top-style:dashed"></i>Typical tablet replacement</span>
+        <span class="muted" style="font-size:.78rem">Schematic — illustrates the concept described in the paper, not measured values.</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -531,6 +627,31 @@ footer .cite b{color:var(--text-soft);font-weight:600}
         <div class="mean-line" id="meanLine" style="left:53%"><span>patients' average</span></div>
       </div>
       <p class="muted reveal" style="font-size:.84rem;margin-top:14px">Each <span class="em-amber">amber dot</span> is a question; each <span class="em-teal">teal dot</span> is a patient. Their broad, overlapping spread is exactly what you want to see — good coverage with patients sitting at a slightly higher level of wellbeing than the average question. <em>(Illustrative distribution based on the paper's person–item map.)</em></p>
+    </div>
+
+    <div class="narrow" style="margin-top:54px">
+      <h3 class="reveal" style="font-size:clamp(1.3rem,3vw,1.8rem)">Explore the real 36 questions <span class="muted" style="font-weight:400;font-size:.7em">— hover any dot</span></h3>
+      <p class="lead reveal d1" style="font-size:1.02rem">Here are all 36 items at their actual Rasch <b>locations</b> from the paper (Table 3), left = easiest to endorse, right = highest impairment. The <span class="em-coral">six coral dots</span> are the items that didn't fit the model cleanly and were set aside.</p>
+    </div>
+
+    <div class="explorer reveal d2" id="explorer" style="margin-top:22px">
+      <div class="exp-toolbar">
+        <div class="legend2">
+          <span><i style="background:linear-gradient(135deg,var(--amber),var(--teal))"></i>Well-fitting item</span>
+          <span><i style="background:linear-gradient(135deg,var(--coral),var(--coral-deep))"></i>Excluded (poor fit)</span>
+          <span><i style="background:radial-gradient(circle,#fff,var(--coral) 60%)"></i>Worst-scored item</span>
+        </div>
+        <button class="toggle-btn" id="expToggle" aria-pressed="false">Hide the 6 excluded</button>
+      </div>
+      <div class="exp-axis" id="expAxis">
+        <div class="baseline"></div>
+        <!-- ticks + dots injected by JS -->
+        <div class="exp-tip" id="expTip" role="status"></div>
+      </div>
+      <div class="exp-foot">
+        <span class="muted">← less impairment · more impairment →</span>
+        <span class="count">Showing <b id="expCount">36</b> of 36 items</span>
+      </div>
     </div>
   </div>
 </section>
@@ -709,12 +830,130 @@ footer .cite b{color:var(--text-soft);font-weight:600}
 
   /* ---------- progress + nav dots ---------- */
   var progress=document.getElementById('progress'), dots=Array.prototype.slice.call(document.querySelectorAll('.dots a'));
-  var ids=['hero','problem','data','idea','build','proof','voice','map','glossary','why'];
+  var ids=['hero','problem','rhythm','data','idea','build','proof','voice','map','glossary','why'];
   var sections=ids.map(function(id){return document.getElementById(id);});
   function onScroll(){var h=document.documentElement;progress.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';}
   window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
   var navObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var idx=sections.indexOf(e.target);dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});}});},{threshold:.5});
   sections.forEach(function(s){if(s)navObs.observe(s);});
+
+  /* ---------- cortisol rhythm chart ---------- */
+  (function(){
+    var fig=document.getElementById('rhythm-fig'); if(!fig) return;
+    var svg=fig.querySelector('svg'), W=800, H=340, top=40, bot=300;
+    function X(h){return (h/24)*W;}
+    function Y(v){return bot-v*(bot-top);}          // v: 0..1 cortisol
+    // smooth path (Catmull-Rom -> cubic Bezier)
+    function smooth(pts){
+      if(pts.length<2) return "";
+      var d="M"+pts[0][0].toFixed(1)+","+pts[0][1].toFixed(1);
+      for(var i=0;i<pts.length-1;i++){
+        var p0=pts[i-1]||pts[i], p1=pts[i], p2=pts[i+1], p3=pts[i+2]||p2;
+        var c1x=p1[0]+(p2[0]-p0[0])/6, c1y=p1[1]+(p2[1]-p0[1])/6;
+        var c2x=p2[0]-(p3[0]-p1[0])/6, c2y=p2[1]-(p3[1]-p1[1])/6;
+        d+="C"+c1x.toFixed(1)+","+c1y.toFixed(1)+" "+c2x.toFixed(1)+","+c2y.toFixed(1)+" "+p2[0].toFixed(1)+","+p2[1].toFixed(1);
+      }
+      return d;
+    }
+    var healthy=[[0,.14],[3,.22],[5,.45],[7,.92],[8,1],[10,.78],[12,.62],[14,.5],[16,.4],[18,.3],[20,.22],[22,.17],[24,.14]].map(function(p){return [X(p[0]),Y(p[1])];});
+    var replace=[[0,.05],[5,.03],[7,.06],[8.2,.12],[9,.9],[10.5,.62],[12.5,.42],[13,.4],[14,.78],[15.5,.5],[17.5,.32],[18,.3],[19,.6],[20.5,.34],[22,.16],[24,.06]].map(function(p){return [X(p[0]),Y(p[1])];});
+    var dH=smooth(healthy), dR=smooth(replace);
+    var hp=document.getElementById('rh-healthy'), rp=document.getElementById('rh-replace');
+    hp.setAttribute('d',dH); rp.setAttribute('d',dR);
+    // area under healthy
+    document.getElementById('rh-area').setAttribute('d', dH+" L"+W+","+bot+" L0,"+bot+" Z");
+    // gridlines
+    var g=document.getElementById('rh-grid'),gh="";
+    [0,.25,.5,.75,1].forEach(function(v){var y=Y(v);gh+='<line class="grid-l" x1="0" y1="'+y+'" x2="'+W+'" y2="'+y+'"/>';});
+    g.innerHTML=gh;
+    // x axis labels
+    var xa=document.getElementById('rh-xaxis'),xh="";
+    [["12am",0],["6am",6],["12pm",12],["6pm",18],["12am",24]].forEach(function(t){var x=X(t[1]);xh+='<text class="axis-l" x="'+(Math.min(Math.max(x,18),W-18))+'" y="326" text-anchor="middle">'+t[0]+'</text>';});
+    xa.innerHTML=xh;
+    // dash lengths for draw animation
+    [hp,rp].forEach(function(p){var L=p.getTotalLength();p.style.setProperty('--len',L); if(p===rp){p.style.strokeDasharray='2 9';p.style.strokeDashoffset='0';}});
+    // traveling dot along healthy curve, starts after draw
+    var trav=document.getElementById('rh-trav');
+    var started=false;
+    function runTrav(){
+      if(reduce){trav.style.display='none';return;}
+      var L=hp.getTotalLength(), t0=null, dur=5200;
+      function step(ts){ if(!t0)t0=ts; var p=((ts-t0)%dur)/dur; var pt=hp.getPointAtLength(p*L); trav.setAttribute('cx',pt.x); trav.setAttribute('cy',pt.y); requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    }
+    var rfo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){fig.classList.add('in'); if(!started){started=true; setTimeout(runTrav, reduce?0:2100);} rfo.unobserve(e.target);}});},{threshold:.3});
+    rfo.observe(fig);
+    if(reduce){ hp.style.strokeDashoffset='0'; }
+  })();
+
+  /* ---------- interactive Rasch item explorer ---------- */
+  (function(){
+    var exp=document.getElementById('explorer'); if(!exp) return;
+    // Real data from Table 3 (location, fit residual). excluded = |fit residual| >= 2.5
+    var items=[
+      ["I feel lightheaded",-1.55,0.08],["I get nauseous",-1.29,0.05],["I worry about my health",-1.03,0.63],
+      ["I find it difficult to think clearly",-1.01,0.20],["I am happy",-0.93,0.86],["I feel low or depressed",-0.63,0.08],
+      ["I have to struggle to finish jobs",-0.59,1.95],["I sweat for no particular reason",-0.57,3.45],["I am irritable",-0.54,0.27],
+      ["My legs feel weak",-0.53,0.01],["I get headaches",-0.51,2.48],["I lose track of what I want to say",-0.49,0.34],
+      ["I feel unwell first thing in the morning",-0.38,0.39],["I can concentrate well",-0.29,0.51],["I have salt cravings",-0.28,2.63],
+      ["Normal daily activities make me tired",-0.13,1.12],["My ability to work is limited",-0.11,0.72],["My joints and/or muscles ache",-0.10,0.29],
+      ["I have back pain",-0.08,0.80],["I have to push myself to do things",-0.03,1.51],["I feel good about my health",0.11,2.18],
+      ["I sleep well",0.18,0.93],["I am relaxed",0.44,0.21],["I get ill more easily than others",0.45,1.70],
+      ["I feel physically fit",0.55,1.63],["I have lost interest in sex",0.55,4.04],["I need to get up during the night to pass water",0.61,4.14],
+      ["I can keep going during the day without feeling tired",0.61,1.17],["I feel rested when I wake up in the morning",0.73,0.95],
+      ["I am satisfied with my sex life",0.78,3.29],["I take a long time to recover from illnesses",0.80,0.26],["I put on weight easily",0.83,2.12],
+      ["I cope well in emotional situations",0.84,1.15],["I have dry skin",0.92,2.59],["Emotional stress makes me exhausted",1.04,1.76],
+      ["I feel full of energy",1.63,2.26]
+    ];
+    var axis=document.getElementById('expAxis'), tip=document.getElementById('expTip');
+    var min=-1.7, max=1.7, pad=4;
+    function pct(loc){ return pad + (loc-min)/(max-min)*(100-2*pad); }
+    // ticks
+    [-1.5,-1,-0.5,0,0.5,1,1.5].forEach(function(v){
+      var t=document.createElement('div'); t.className='tick'; t.style.left=pct(v)+'%';
+      var s=document.createElement('span'); s.textContent=(v>0?'+':'')+v; t.appendChild(s); axis.appendChild(t);
+    });
+    var lifts=[1,2,3,4,0]; // stagger vertically to reduce overlap
+    items.forEach(function(it,i){
+      var loc=it[1], fr=it[2], excl=Math.abs(fr)>=2.5, worst=(it[0]==="Emotional stress makes me exhausted");
+      var d=document.createElement('button'); d.className='idot'+(excl?' excl':'')+(worst?' worst':'');
+      d.style.left=pct(loc)+'%'; d.setAttribute('data-lift', lifts[i%lifts.length]);
+      d.setAttribute('aria-label', it[0]); d.style.transitionDelay=(i*0.022)+'s';
+      function show(){
+        tip.innerHTML='<b>“'+it[0]+'”</b>'+
+          '<div class="row"><span>location</span><span>'+(loc>0?'+':'')+loc.toFixed(2)+'</span></div>'+
+          '<div class="row"><span>fit residual</span><span>'+fr.toFixed(2)+'</span></div>'+
+          '<div class="flag '+(excl?'ex':'ok')+'">'+(worst?'★ worst-scored item — ':'')+(excl?'excluded (poor model fit)':'good fit — kept')+'</div>';
+        tip.classList.add('show');
+        var ax=axis.getBoundingClientRect(), dr=d.getBoundingClientRect();
+        var left=dr.left-ax.left+dr.width/2;
+        var tw=Math.min(240, ax.width*0.8);
+        tip.style.maxWidth=tw+'px';
+        left=Math.max(4, Math.min(left-tw/2, ax.width-tw-4));
+        tip.style.left=left+'px';
+        var above = (dr.top-ax.top) > ax.height/2;
+        tip.style.top = above ? '0px' : 'auto';
+        tip.style.bottom = above ? 'auto' : '0px';
+      }
+      function hide(){ tip.classList.remove('show'); }
+      d.addEventListener('mouseenter',show); d.addEventListener('focus',show);
+      d.addEventListener('mouseleave',hide); d.addEventListener('blur',hide);
+      d.addEventListener('click',show);
+      axis.appendChild(d);
+    });
+    var eo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');eo.unobserve(e.target);}});},{threshold:.25});
+    eo.observe(exp);
+    // toggle
+    var btn=document.getElementById('expToggle'), countEl=document.getElementById('expCount'), hidden=false;
+    btn.addEventListener('click',function(){
+      hidden=!hidden;
+      axis.querySelectorAll('.idot.excl').forEach(function(d){ d.classList.toggle('hidden',hidden); });
+      btn.textContent=hidden?'Show all 36':'Hide the 6 excluded';
+      btn.classList.toggle('off',hidden); btn.setAttribute('aria-pressed',hidden);
+      countEl.textContent=hidden?'30':'36';
+      tip.classList.remove('show');
+    });
+  })();
 })();
 </script>
 </body>
