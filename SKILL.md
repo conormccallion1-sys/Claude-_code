@@ -91,4 +91,99 @@ Health psychology:
   OR "mental health" OR "anxiety" OR "depression" OR "fatigue" OR "patient experience"
   OR "self-management" OR "illness burden"
 
-Measurement
+Measurement:
+  "AddiQoL" OR "SF-36" OR "EQ-5D" OR "PHQ-9" OR "GAD-7"
+  OR "patient-reported outcome" OR "PROM" OR "questionnaire" OR "Rasch"
+  OR "psychometric" OR "validation"
+
+Combine concepts with AND across blocks, OR within a block. Run each concept
+block as its own sweep first, then run the AND-combined queries. Record every
+query string you run so the search is reproducible.
+
+---
+
+### Phase 2 — Execute the search sweep
+
+Run the initial broad sweep across all sources, then narrow.
+
+1. Broad sweep — wide net, high recall:
+   uv run --directory <REPO_PATH> paper-search search "<combined query>" -n 20 -s all
+
+2. Targeted sweep — run the priority health-psychology sources with year filters:
+   uv run --directory <REPO_PATH> paper-search search "<combined query>" -n 20 -s pubmed,pmc,europepmc,semantic,crossref,openalex -y 2010-2025
+
+3. Save the raw JSON from every run. Each search returns JSON; redirect it to a
+   per-query file (e.g. results/q01_broad.json) so nothing is lost between runs.
+
+Log for each query: the exact query string, sources, -n, -y, date run, and the
+hit count. This log is your PRISMA "identification" record.
+
+---
+
+### Phase 3 — Deduplicate
+
+Merge all raw JSON into a single candidate set and remove duplicates:
+- Primary key: DOI (normalise to lowercase, strip the https://doi.org/ prefix).
+- Records without a DOI: dedupe on normalised title + first author + year.
+- Keep the richest record when merging duplicates (prefer one with an abstract,
+  PDF link, and citation count), but record every source it appeared in.
+
+Report counts at each step: records identified, duplicates removed, records
+remaining for screening.
+
+---
+
+### Phase 4 — Screen against criteria
+
+Apply the Phase 0 inclusion/exclusion criteria — never criteria invented to fit
+the results.
+
+1. Title/abstract screen: mark each record include / exclude / unsure, with a
+   one-line reason for every exclusion (e.g. "secondary adrenal insufficiency",
+   "animal study", "no QoL outcome").
+2. Full-text screen: download and read the PDFs of the survivors.
+   uv run --directory <REPO_PATH> paper-search download <source> <paper_id> -o ./downloads
+   uv run --directory <REPO_PATH> paper-search read <source> <paper_id> -o ./downloads
+   Confirm each still meets every inclusion criterion. Log the exclusion reason
+   for any dropped at full text.
+
+Keep a running tally compatible with a PRISMA flow diagram:
+identified -> deduplicated -> title/abstract screened -> full-text assessed -> included.
+
+---
+
+### Phase 5 — Snowball
+
+Expand from the included set to catch what keyword search missed:
+- Backward snowballing: scan the reference list of each included paper for
+  relevant prior work.
+- Forward snowballing: find papers that cite each included paper (use Semantic
+  Scholar / OpenAlex citation data).
+Feed new candidates back through Phase 3 (dedupe) and Phase 4 (screen). Repeat
+until a snowball pass surfaces no new includes.
+
+---
+
+### Phase 6 — Extract and track gaps
+
+For each included paper, extract into a structured table:
+  citation, design, population/N, intervention/exposure, outcome measure(s),
+  key findings, limitations.
+
+Track gaps as you go:
+- Concepts in the PICO with little or no coverage.
+- Populations, designs, or outcome measures that are under-represented.
+- Conflicting findings that need reconciling.
+
+The gap list is the bridge from "what exists" to "what the review should argue."
+
+---
+
+### Phase 7 — Build the citation library
+
+- Assign a stable citation key to each included paper.
+- Store the canonical metadata (DOI, authors, year, title, venue) plus the local
+  PDF path and the source it was retrieved from.
+- Export to your reference manager (BibTeX/RIS) so it plugs into the write-up.
+- Keep the query log, screening decisions, and PRISMA counts alongside the
+  library so the whole review is reproducible and auditable.
