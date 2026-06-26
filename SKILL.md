@@ -11,6 +11,18 @@ description: Systematic literature review for academic research. Search 20+ sour
 Search academic papers via the `paper-search` CLI and execute a full PRISMA-aligned
 review pipeline.
 
+## Setup (once)
+
+The CLI is a Python package in this repository. Install its dependencies with uv:
+uv sync --directory <REPO_PATH>
+
+Optional environment variables (none are required for the default sweep):
+- PAPER_SEARCH_EMAIL — your email; raises API rate limits (Crossref/OpenAlex/NCBI
+  "polite pool") and is required by the `unpaywall` resolver.
+- NCBI_API_KEY — higher PubMed/E-utilities rate limits.
+- SEMANTIC_SCHOLAR_API_KEY — higher Semantic Scholar limits.
+- CORE_API_KEY — required to use the `core` source.
+
 ## CLI Usage
 
 All commands run via:
@@ -21,28 +33,54 @@ Replace <REPO_PATH> with the absolute path to your clone of this repository.
 ### Search
 uv run --directory <REPO_PATH> paper-search search "<query>" -n <max_per_source> -s <sources> -y <year>
 - -n: results per source (default: 5; use 20 during initial sweep)
-- -s: comma-separated sources or "all" (default: all)
-- -y: year filter for Semantic Scholar (e.g. "2020", "2018-2024")
+- -s: comma-separated sources or "all" (default: the keyless, reliable set)
+- -y: year filter — single year "2020" or range "2018-2024"; applied server-side
+  where the API supports it, otherwise filtered client-side
+- --no-dedup: keep every record instead of merging duplicates
+
+Sources are queried concurrently. A source that errors (network, rate limit,
+missing key) does not abort the sweep — its error is reported under "errors".
 
 ### Download PDF
 uv run --directory <REPO_PATH> paper-search download <source> <paper_id> [-o ./downloads]
+Resolves an open-access PDF for the record and saves it. `paper_id` is the id
+from a search result for that source (a DOI works for most sources; an arXiv id
+for arxiv). If the source has no direct PDF, it falls back to OpenAlex then
+Unpaywall (set PAPER_SEARCH_EMAIL) to find an OA copy.
 
 ### Read (extract text)
 uv run --directory <REPO_PATH> paper-search read <source> <paper_id> [-o ./downloads]
+Downloads the PDF (as above) and prints extracted plain text to stdout.
 
 ### List sources
-uv run --directory <REPO_PATH> paper-search sources
+uv run --directory <REPO_PATH> paper-search sources [--json]
 
 ## Output
-search and download return JSON. read returns plain text.
+`search` returns a JSON envelope:
+  { query, sources, year, total_raw, total_deduped, errors, results: [ ... ] }
+Each result is a paper object: source, paper_id, title, authors, year, doi,
+abstract, url, pdf_url, venue, citations. `download` returns JSON (path + bytes).
+`read` returns plain text. Results are deduplicated by DOI (falling back to
+title + first author + year), keeping the richest record across sources.
 
 ## Sources
-arxiv, pubmed, biorxiv, medrxiv, google_scholar, iacr, semantic, crossref, openalex,
-pmc, core, europepmc, dblp, openaire, citeseerx, doaj, base, zenodo, hal, ssrn, unpaywall
-Optional (env vars): ieee (IEEE_API_KEY), acm (ACM_API_KEY)
+
+Searchable (keyless, used in the default "all" sweep):
+  arxiv, pubmed, pmc, europepmc, biorxiv, medrxiv, semantic, crossref, openalex,
+  doaj, dblp, openaire, zenodo, hal
+Searchable with a key: core (CORE_API_KEY)
+Resolver only (no keyword search): unpaywall — DOI to open-access PDF, used by
+  download/read; needs PAPER_SEARCH_EMAIL
+Listed but not callable here (no usable public API without scraping/credentials):
+  google_scholar, iacr, citeseerx, base, ssrn, ieee, acm
+Run `paper-search sources` for the live status of each.
+
+Note: biorxiv, medrxiv and pmc are served through the Europe PMC index (filtered
+by publisher/source), so preprints and PMC open-access records are searchable
+without a separate preprint-server API.
 
 Priority sources for health psychology / chronic illness research:
-  pubmed, pmc, europepmc, semantic, crossref, openalex, google_scholar, medrxiv, doaj
+  pubmed, pmc, europepmc, semantic, crossref, openalex, medrxiv, doaj
 
 Not in this CLI but essential — access via university institutional login:
   PsycINFO (psychology), Cochrane Library (systematic reviews / interventions),

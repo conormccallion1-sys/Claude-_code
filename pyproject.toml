@@ -1,0 +1,20 @@
+[project]
+name = "paper-search"
+version = "0.1.0"
+description = "Systematic literature review CLI: search 15+ academic sources, download and read PDFs."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31",
+    "pypdf>=4.0",
+]
+
+[project.scripts]
+paper-search = "paper_search.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/paper_search"]
