@@ -1,0 +1,17 @@
+{
+  "README.md": {
+    "mtime": 1782051422.587174,
+    "ast_hash": "38511c15214923daa7c653c72ef148a9",
+    "semantic_hash": "38511c15214923daa7c653c72ef148a9"
+  },
+  "SKILL.md": {
+    "mtime": 1782495647.5769303,
+    "ast_hash": "142e9000bab41bd77bf9a771982cf5bf",
+    "semantic_hash": "142e9000bab41bd77bf9a771982cf5bf"
+  },
+  "infographic/index.html": {
+    "mtime": 1782495647.5769303,
+    "ast_hash": "b50b36a8009298f7bf75669f13382c43",
+    "semantic_hash": "b50b36a8009298f7bf75669f13382c43"
+  }
+}

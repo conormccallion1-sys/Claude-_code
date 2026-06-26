@@ -1,0 +1,501 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "addiqol_development_pipeline",
+        "label": "AddiQoL Development Pipeline: Disease, Tool, Validation",
+        "nodes": [
+          "infographic_addisons_disease",
+          "infographic_addiqol_questionnaire",
+          "infographic_rasch_analysis"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 0.95,
+        "source_file": "infographic/index.html"
+      },
+      {
+        "id": "literature_review_research_scope",
+        "label": "Literature Review Research Scope: PICO, Sources, HRQoL Focus",
+        "nodes": [
+          "skill_pico_format",
+          "skill_academic_sources",
+          "skill_hrqol_measurement"
+        ],
+        "relation": "form",
+        "confidence": "EXTRACTED",
+        "confidence_score": 0.9,
+        "source_file": "SKILL.md"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "label": "Claude-_code Project",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "readme_claude_code_project",
+      "community": 3,
+      "norm_label": "claude-_code project"
+    },
+    {
+      "label": "paper-search Skill",
+      "file_type": "document",
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "skill_paper_search_skill",
+      "community": 3,
+      "norm_label": "paper-search skill"
+    },
+    {
+      "label": "Systematic Literature Review Workflow",
+      "file_type": "concept",
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "skill_systematic_literature_review",
+      "community": 1,
+      "norm_label": "systematic literature review workflow"
+    },
+    {
+      "label": "PRISMA-aligned Review Pipeline",
+      "file_type": "rationale",
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "skill_prisma_pipeline",
+      "community": 1,
+      "norm_label": "prisma-aligned review pipeline"
+    },
+    {
+      "label": "PICO Research Question Format",
+      "file_type": "concept",
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "skill_pico_format",
+      "community": 1,
+      "norm_label": "pico research question format"
+    },
+    {
+      "label": "Academic Paper Sources (20+)",
+      "file_type": "concept",
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "skill_academic_sources",
+      "community": 3,
+      "norm_label": "academic paper sources (20+)"
+    },
+    {
+      "label": "Addison's Disease / Primary Adrenal Insufficiency Research",
+      "file_type": "concept",
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "skill_addisons_disease_research",
+      "community": 2,
+      "norm_label": "addison's disease / primary adrenal insufficiency research"
+    },
+    {
+      "label": "Health-Related Quality of Life (HRQoL) Measurement",
+      "file_type": "concept",
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "skill_hrqol_measurement",
+      "community": 1,
+      "norm_label": "health-related quality of life (hrqol) measurement"
+    },
+    {
+      "label": "AddiQoL Visual Explainer Infographic",
+      "file_type": "document",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_addiqol_visual_explainer",
+      "community": 0,
+      "norm_label": "addiqol visual explainer infographic"
+    },
+    {
+      "label": "AddiQoL Disease-Specific QoL Questionnaire",
+      "file_type": "concept",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_addiqol_questionnaire",
+      "community": 0,
+      "norm_label": "addiqol disease-specific qol questionnaire"
+    },
+    {
+      "label": "L\u00f8v\u00e5s et al. 2010 \u2014 Development of AddiQoL (J Clin Endocrinol Metab)",
+      "file_type": "paper",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "L\u00f8v\u00e5s K, Curran S, \u00d8ksnes M, Husebye ES, Huppert FA, Chatterjee VKK",
+      "contributor": null,
+      "id": "infographic_lovas_2010_paper",
+      "community": 0,
+      "norm_label": "l\u00f8vas et al. 2010 \u2014 development of addiqol (j clin endocrinol metab)"
+    },
+    {
+      "label": "Rasch Analysis",
+      "file_type": "concept",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_rasch_analysis",
+      "community": 0,
+      "norm_label": "rasch analysis"
+    },
+    {
+      "label": "SF-36 Generic QoL Questionnaire",
+      "file_type": "concept",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_sf36",
+      "community": 0,
+      "norm_label": "sf-36 generic qol questionnaire"
+    },
+    {
+      "label": "Cortisol Daily Rhythm",
+      "file_type": "concept",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_cortisol_rhythm",
+      "community": 2,
+      "norm_label": "cortisol daily rhythm"
+    },
+    {
+      "label": "Disease-Specific vs Generic QoL Tool Design Rationale",
+      "file_type": "rationale",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_disease_specific_tool_rationale",
+      "community": 0,
+      "norm_label": "disease-specific vs generic qol tool design rationale"
+    },
+    {
+      "label": "Addison's Disease (Primary Adrenal Insufficiency)",
+      "file_type": "concept",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_addisons_disease",
+      "community": 2,
+      "norm_label": "addison's disease (primary adrenal insufficiency)"
+    },
+    {
+      "label": "AGHDA (Growth Hormone Deficiency QoL Tool)",
+      "file_type": "concept",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_aghda",
+      "community": 0,
+      "norm_label": "aghda (growth hormone deficiency qol tool)"
+    },
+    {
+      "label": "AcroQoL (Acromegaly QoL Tool)",
+      "file_type": "concept",
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "infographic_acroqol",
+      "community": 0,
+      "norm_label": "acroqol (acromegaly qol tool)"
+    }
+  ],
+  "links": [
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "readme_claude_code_project",
+      "target": "skill_paper_search_skill"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "skill_paper_search_skill",
+      "target": "skill_academic_sources"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "skill_paper_search_skill",
+      "target": "skill_systematic_literature_review"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "skill_systematic_literature_review",
+      "target": "skill_addisons_disease_research"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "skill_systematic_literature_review",
+      "target": "skill_hrqol_measurement"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "skill_systematic_literature_review",
+      "target": "skill_pico_format"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "skill_systematic_literature_review",
+      "target": "skill_prisma_pipeline"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "skill_addisons_disease_research",
+      "target": "infographic_addisons_disease"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "SKILL.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "skill_hrqol_measurement",
+      "target": "infographic_addiqol_questionnaire"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_addiqol_visual_explainer",
+      "target": "infographic_addiqol_questionnaire"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_addiqol_visual_explainer",
+      "target": "infographic_lovas_2010_paper"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_addiqol_questionnaire",
+      "target": "infographic_acroqol"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_addiqol_questionnaire",
+      "target": "infographic_addisons_disease"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_addiqol_questionnaire",
+      "target": "infographic_aghda"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_addiqol_questionnaire",
+      "target": "infographic_rasch_analysis"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_disease_specific_tool_rationale",
+      "target": "infographic_addiqol_questionnaire"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_lovas_2010_paper",
+      "target": "infographic_addiqol_questionnaire"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_lovas_2010_paper",
+      "target": "infographic_sf36"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_disease_specific_tool_rationale",
+      "target": "infographic_sf36"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "infographic/index.html",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "infographic_addisons_disease",
+      "target": "infographic_cortisol_rhythm"
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "addiqol_development_pipeline",
+      "label": "AddiQoL Development Pipeline: Disease, Tool, Validation",
+      "nodes": [
+        "infographic_addisons_disease",
+        "infographic_addiqol_questionnaire",
+        "infographic_rasch_analysis"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 0.95,
+      "source_file": "infographic/index.html"
+    },
+    {
+      "id": "literature_review_research_scope",
+      "label": "Literature Review Research Scope: PICO, Sources, HRQoL Focus",
+      "nodes": [
+        "skill_pico_format",
+        "skill_academic_sources",
+        "skill_hrqol_measurement"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 0.9,
+      "source_file": "SKILL.md"
+    }
+  ],
+  "built_at_commit": "c2ee415dc4ed9da2b56d040cba2822f91650c6d1"
+}
