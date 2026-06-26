@@ -61,7 +61,7 @@ body{
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   line-height:1.6;
-  overflow-x:hidden;
+  overflow-x:clip;
   position:relative;
 }
 
@@ -249,12 +249,12 @@ p{margin:.7em 0}
 .funnel-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
 @media(max-width:900px){.funnel-layout{grid-template-columns:1fr;gap:26px}}
 .funnel{display:flex;flex-direction:column;gap:0;position:relative}
-.stage{position:relative;margin:0 auto;border-radius:15px;color:#160d02;display:flex;flex-direction:column;justify-content:center;align-items:center;font-weight:700;overflow:hidden;width:0%;opacity:0;transform:translateY(10px);transition:width 1s var(--ease),opacity .6s ease,transform .6s var(--ease);box-shadow:0 16px 40px -18px rgba(0,0,0,.7)}
-.funnel.in .stage{opacity:1;transform:none}
-.funnel.in .s0{width:100%;transition-delay:0s}
-.funnel.in .s1{width:80%;transition-delay:.35s}
-.funnel.in .s2{width:55%;transition-delay:.7s}
-.funnel.in .s3{width:40%;transition-delay:1.05s}
+.stage{position:relative;margin:0 auto;border-radius:15px;color:#160d02;display:flex;flex-direction:column;justify-content:center;align-items:center;font-weight:700;overflow:hidden;width:0%;opacity:0;transform:translateY(10px);transition:width .8s var(--ease),opacity .5s ease,transform .5s var(--ease);box-shadow:0 16px 40px -18px rgba(0,0,0,.7)}
+.stage.show{opacity:1;transform:none}
+.stage.show.s0{width:100%}
+.stage.show.s1{width:80%}
+.stage.show.s2{width:55%}
+.stage.show.s3{width:40%}
 .stage .num{font-family:var(--font-disp);font-size:clamp(1.8rem,4vw,2.7rem);line-height:1;font-weight:900}
 .stage .lbl{font-size:.78rem;font-weight:600;letter-spacing:.03em;opacity:.85;margin-top:3px}
 .s0{height:98px;background:linear-gradient(135deg,#ffe3a8,var(--amber))}
@@ -270,6 +270,30 @@ p{margin:.7em 0}
 .step:nth-child(4) .idx{background:linear-gradient(135deg,var(--violet),var(--blue))}
 .step h3{font-size:1.06rem;margin-bottom:2px}
 .step p{margin:.2em 0 0;font-size:.92rem;color:var(--text-soft)}
+/* scrollytelling */
+.scrolly{padding-bottom:0}
+.scrolly-track{position:relative;height:360vh}
+.scrolly-sticky{position:sticky;top:0;min-height:100svh;display:flex;align-items:center;padding:40px 0}
+.scrolly-track.static{height:auto}
+.scrolly-track.static .scrolly-sticky{position:static;min-height:0;padding:24px 0}
+.scrolly .step{opacity:.32;transform:translateX(0);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.scrolly .step.active{opacity:1;transform:translateX(6px)}
+.scrolly .step .idx{transition:box-shadow .4s var(--ease),transform .4s var(--ease)}
+.scrolly .step.active .idx{box-shadow:0 0 0 6px rgba(255,194,77,.16);transform:scale(1.08)}
+.scrolly-track.static .step{opacity:1}
+.scrolly-cue{display:flex;align-items:center;gap:10px;margin-top:18px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mute)}
+.scrolly-cue .dotline{display:flex;gap:6px}
+.scrolly-cue .dotline b{width:8px;height:8px;border-radius:50%;background:rgba(150,180,255,.25);transition:background .35s,transform .35s}
+.scrolly-cue .dotline b.on{background:var(--amber);transform:scale(1.25)}
+.scrolly-track.static .scrolly-cue{display:none}
+
+/* shimmering gradient text */
+.grad,.glow{background-size:220% auto}
+.shimmer-on .grad,.shimmer-on .glow{animation:gradmove 9s linear infinite}
+@keyframes gradmove{to{background-position:220% center}}
+
+/* card 3D tilt */
+.tilt{transform-style:preserve-3d;will-change:transform}
 
 /* ============================================================ GAUGES */
 .gauges{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
@@ -529,29 +553,36 @@ footer .cite b{color:var(--text-soft);font-weight:600}
   </div>
 </section>
 
-<!-- ============================== BUILD / FUNNEL ============================== -->
-<section id="build">
-  <div class="wrap">
-    <div class="narrow">
-      <span class="kicker reveal">How it was built</span>
-      <h2 class="reveal d1">From 70 raw ideas to <span class="grad">36 sharp questions</span></h2>
-      <p class="lead reveal d2">Following a standard four-stage recipe for building such tools, the team listened to patients, drafted a long list of questions, then ruthlessly trimmed it using both clinical judgement and statistics.</p>
-    </div>
-    <div class="funnel-layout" style="margin-top:40px">
-      <div class="funnel reveal" id="funnel">
-        <div class="stage s0"><span class="num" data-count="70">70</span><span class="lbl">items first drafted</span></div>
-        <div class="connector"></div>
-        <div class="stage s1"><span class="num" data-count="60">60</span><span class="lbl">after expert review (9 doctors · 5 patients)</span></div>
-        <div class="connector"></div>
-        <div class="stage s2"><span class="num" data-count="36">36</span><span class="lbl">after pretesting in 100 patients</span></div>
-        <div class="connector"></div>
-        <div class="stage s3"><span class="num" data-count="86">86</span><span class="lbl">patients completed the final test</span></div>
-      </div>
-      <div class="steps">
-        <div class="step reveal d1"><div class="idx">1</div><div><h3>Listen</h3><p>Reviewed the literature and patient-association surveys, then ran in-depth interviews with <b>14 patients and 7 partners</b> to surface neglected issues.</p></div></div>
-        <div class="step reveal d2"><div class="idx">2</div><div><h3>Draft</h3><p><b>70 candidate questions</b> written (36 adapted from existing tools, 34 newly invented), each phrased both positively and negatively.</p></div></div>
-        <div class="step reveal d3"><div class="idx">3</div><div><h3>Refine</h3><p>Nine expert endocrinologists and five expert patients rated every item for clarity and importance → trimmed to a <b>60-item</b> draft.</p></div></div>
-        <div class="step reveal d4"><div class="idx">4</div><div><h3>Trim &amp; test</h3><p>Pretested in 100 patients; redundant or skewed items removed → <b>36 items</b>. The final set was then field-tested for reliability.</p></div></div>
+<!-- ============================== BUILD / FUNNEL (scrollytelling) ============================== -->
+<section id="build" class="scrolly">
+  <div class="wrap narrow">
+    <span class="kicker reveal">How it was built</span>
+    <h2 class="reveal d1">From 70 raw ideas to <span class="grad">36 sharp questions</span></h2>
+    <p class="lead reveal d2">Following a standard four-stage recipe for building such tools, the team listened to patients, drafted a long list of questions, then ruthlessly trimmed it using both clinical judgement and statistics. <span class="muted">Scroll to watch the funnel narrow.</span></p>
+  </div>
+  <div class="scrolly-track wrap" id="buildTrack">
+    <div class="scrolly-sticky">
+      <div style="width:100%">
+        <div class="funnel-layout">
+          <div class="funnel" id="funnel">
+            <div class="stage s0"><span class="num" data-count="70">70</span><span class="lbl">items first drafted</span></div>
+            <div class="connector"></div>
+            <div class="stage s1"><span class="num" data-count="60">60</span><span class="lbl">after expert review (9 doctors · 5 patients)</span></div>
+            <div class="connector"></div>
+            <div class="stage s2"><span class="num" data-count="36">36</span><span class="lbl">after pretesting in 100 patients</span></div>
+            <div class="connector"></div>
+            <div class="stage s3"><span class="num" data-count="86">86</span><span class="lbl">patients completed the final test</span></div>
+          </div>
+          <div>
+            <div class="steps">
+              <div class="step"><div class="idx">1</div><div><h3>Listen</h3><p>Reviewed the literature and patient-association surveys, then ran in-depth interviews with <b>14 patients and 7 partners</b> to surface neglected issues.</p></div></div>
+              <div class="step"><div class="idx">2</div><div><h3>Draft</h3><p><b>70 candidate questions</b> written (36 adapted from existing tools, 34 newly invented), each phrased both positively and negatively.</p></div></div>
+              <div class="step"><div class="idx">3</div><div><h3>Refine</h3><p>Nine expert endocrinologists and five expert patients rated every item for clarity and importance → trimmed to a <b>60-item</b> draft.</p></div></div>
+              <div class="step"><div class="idx">4</div><div><h3>Trim &amp; test</h3><p>Pretested in 100 patients; redundant or skewed items removed → <b>36 items</b>. The final set was then field-tested for reliability.</p></div></div>
+            </div>
+            <div class="scrolly-cue"><span class="dotline" id="buildDots"><b></b><b></b><b></b><b></b></span> keep scrolling</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -807,9 +838,51 @@ footer .cite b{color:var(--text-soft);font-weight:600}
   if(dt){ var dto=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
     e.target.querySelectorAll('.minibar i').forEach(function(b,i){ setTimeout(function(){b.style.width=b.getAttribute('data-w')+'%';}, 60*i); }); dto.unobserve(e.target);}});},{threshold:.3}); dto.observe(dt); }
 
-  /* ---------- funnel ---------- */
-  var funnel=document.getElementById('funnel');
-  if(funnel){var fo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');fo.unobserve(e.target);}});},{threshold:.35});fo.observe(funnel);}
+  /* ---------- scrollytelling funnel ---------- */
+  (function(){
+    var track=document.getElementById('buildTrack'); if(!track) return;
+    var stages=Array.prototype.slice.call(track.querySelectorAll('.stage'));
+    var steps=Array.prototype.slice.call(track.querySelectorAll('.step'));
+    var dots=Array.prototype.slice.call(track.querySelectorAll('#buildDots b'));
+    var small=window.matchMedia('(max-width:760px)').matches;
+    if(reduce || small){ // fallback: static, reveal everything
+      track.classList.add('static');
+      stages.forEach(function(s){s.classList.add('show');});
+      steps.forEach(function(s){s.classList.add('active');});
+      dots.forEach(function(d){d.classList.add('on');});
+      return;
+    }
+    var last=-1;
+    function onScroll(){
+      var rect=track.getBoundingClientRect();
+      var total=track.offsetHeight - window.innerHeight;
+      var scrolled=Math.min(Math.max(-rect.top,0), total);
+      var p = total>0 ? scrolled/total : 1;
+      var active=Math.min(steps.length-1, Math.floor(p*steps.length/0.85));
+      if(active===last) return; last=active;
+      steps.forEach(function(s,i){s.classList.toggle('active', i<=active);});
+      stages.forEach(function(s,i){s.classList.toggle('show', i<=active);});
+      dots.forEach(function(d,i){d.classList.toggle('on', i<=active);});
+    }
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll,{passive:true});
+    onScroll();
+  })();
+
+  /* ---------- shimmering gradient headings ---------- */
+  if(!reduce) document.body.classList.add('shimmer-on');
+
+  /* ---------- subtle 3D card tilt ---------- */
+  if(!reduce && !window.matchMedia('(pointer:coarse)').matches){
+    document.querySelectorAll('.card.hover, .domain, .fam').forEach(function(el){
+      el.classList.add('tilt');
+      el.addEventListener('mousemove',function(e){
+        var r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+        el.style.transform='perspective(900px) rotateX('+(-y*5).toFixed(2)+'deg) rotateY('+(x*6).toFixed(2)+'deg) translateY(-4px)';
+      });
+      el.addEventListener('mouseleave',function(){ el.style.transform=''; });
+    });
+  }
 
   /* ---------- gauges ---------- */
   var gaugeObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
