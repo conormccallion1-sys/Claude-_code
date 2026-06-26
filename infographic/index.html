@@ -244,6 +244,11 @@ p{margin:.7em 0}
 .exp-tip .flag.ex{color:var(--coral)}.exp-tip .flag.ok{color:var(--teal)}
 .exp-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:8px;font-size:.84rem;color:var(--text-mute)}
 .exp-foot .count b{color:var(--amber);font-family:var(--font-mono)}
+.access h3{display:flex;align-items:center;gap:10px}
+.access-list{margin:.6em 0 0;padding-left:1.1em;display:grid;gap:.7em}
+.access-list li{font-size:.94rem;color:var(--text-soft)}
+.access-list li b{color:var(--text)}
+.access-list a{border-bottom:1px solid rgba(255,194,77,.4)}
 
 /* ============================================================ FUNNEL */
 .funnel-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
@@ -683,6 +688,16 @@ footer .cite b{color:var(--text-soft);font-weight:600}
         <span class="muted">← less impairment · more impairment →</span>
         <span class="count">Showing <b id="expCount">36</b> of 36 items</span>
       </div>
+    </div>
+
+    <div class="card hover reveal d1 access" style="margin-top:24px">
+      <h3>📋 Where to find the actual questionnaire</h3>
+      <p class="muted" style="margin-top:.3em">Every question above is the verbatim text from the paper. To see or use the full instrument:</p>
+      <ul class="access-list">
+        <li><b>Original 36-item list</b> — published in Table 3 of <a href="https://doi.org/10.1210/jc.2009-1711" target="_blank" rel="noopener">Løvås et al., 2010 (JCEM)</a> <span class="muted">(doi:10.1210/jc.2009-1711)</span>, the source for this explorer.</li>
+        <li><b>AddiQoL-30 &amp; AddiQoL-8</b> — the validated versions in use today (the 6 coral items were dropped). See the European validation: <a href="https://academic.oup.com/jcem/article/97/2/568/2836396" target="_blank" rel="noopener">Øksnes et al., 2012 (JCEM)</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/22090270/" target="_blank" rel="noopener">PubMed</a>.</li>
+        <li><b>Official / scored forms &amp; translations</b> — AddiQoL is a proprietary instrument; request access from the developers (Øksnes &amp; Husebye, University of Bergen / the EURADRENAL group). Patient organisations such as the UK Addison's Disease Self-Help Group have also distributed it.</li>
+      </ul>
     </div>
   </div>
 </section>
